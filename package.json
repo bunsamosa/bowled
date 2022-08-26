@@ -2,10 +2,10 @@
   "name": "rubix",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check build-only",
+    "start": "vite",
+    "check-build": "run-p type-check build",
     "preview": "vite preview --port 4173",
-    "build-only": "vite build",
+    "build": "vite build",
     "serve": "vite preview",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
@@ -16,6 +16,7 @@
     "roboto-fontface": "*",
     "vue": "^3.2.37",
     "vue-router": "^4.0.16",
+    "vue-writer": "^1.2.0",
     "vuetify": "^3.0.0-beta.0",
     "webfontloader": "^1.0.0"
   },
