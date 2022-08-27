@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { onboard, logout } from "@/components/common/Web3Connector";
 import { useRouter } from "vue-router";
+import { userStore } from "@/stores/user";
 
 var taglines = ref([
     "Compete with users from all around the world",
@@ -9,17 +10,18 @@ var taglines = ref([
     "Nurture and train the next cricket superstar"
 ]);
 const router = useRouter();
+const user = userStore();
 
 // logout user on loading home page
 await logout();
 
 // login function
 function login() {
-
     // connect to wallet
     onboard.connectWallet()
         .then(() => {
             // redirect to team page
+            user.address = onboard.connectedWallet.value?.accounts[0].address as string;
             router.push("/team");
         }).catch(() => {
             alert("Failed to login, Please try again")
