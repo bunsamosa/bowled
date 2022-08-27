@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { web3Onboard, onboard } from "@/components/common/Web3Connector";
 
 var taglines = ref([
     "Compete with users from all around the world",

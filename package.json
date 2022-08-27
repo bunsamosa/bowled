@@ -11,8 +11,10 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@arcana/auth": "^0.1.1",
     "@mdi/font": "5.9.55",
+    "@web3-onboard/injected-wallets": "^2.2.0",
+    "@web3-onboard/vue": "^2.2.1",
+    "ethers": "^5.7.0",
     "pinia": "^2.0.14",
     "roboto-fontface": "*",
     "vue": "^3.2.37",
