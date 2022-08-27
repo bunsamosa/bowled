@@ -1,23 +1,26 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { web3Onboard, onboard, logout } from "@/components/common/Web3Connector";
+import { onboard, logout } from "@/components/common/Web3Connector";
+import { useRouter } from "vue-router";
 
 var taglines = ref([
     "Compete with users from all around the world",
     "Buy star players from the live auction",
     "Nurture and train the next cricket superstar"
 ]);
+const router = useRouter();
 
 // logout user on loading home page
 await logout();
 
 // login function
 function login() {
+
     // connect to wallet
     onboard.connectWallet()
         .then(() => {
             // redirect to team page
-            console.log(onboard.connectedWallet.value?.accounts[0].address);
+            router.push("/team");
         }).catch(() => {
             alert("Failed to login, Please try again")
         });

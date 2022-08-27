@@ -1,8 +1,7 @@
-import PlayerCardVue from "@/components/player-details/PlayerCard.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/HomeView.vue";
-import PlayerCard from "../views/CardView.vue";
-import SignUpCard from "../views/SignUpView.vue";
+
+import Home from "@/views/HomeView.vue";
+import Team from "@/views/TeamView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,14 +12,9 @@ const router = createRouter({
       component: Home,
     },
     {
-      path: "/player-card",
-      name: "player-card",
-      component: PlayerCard,
-    },
-    {
-      path: "/team-signup",
-      name: "team-signup",
-      component: SignUpCard,
+      path: "/team",
+      name: "team",
+      component: Team,
     }
   ],
 });
