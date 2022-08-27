@@ -7,6 +7,7 @@ import router from "./router";
 import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import VueWriter from "vue-writer";
+import VueProgressBar from "@aacassandra/vue3-progressbar";
 
 // load fonts
 loadFonts();
