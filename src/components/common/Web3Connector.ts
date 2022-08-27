@@ -36,4 +36,9 @@ const web3Onboard = init({
 });
 const onboard = useOnboard();
 
-export { web3Onboard, onboard };
+// logout function
+async function logout() {
+    if (onboard.connectingWallet) await onboard.disconnectConnectedWallet();
+};
+
+export { web3Onboard, onboard, logout };

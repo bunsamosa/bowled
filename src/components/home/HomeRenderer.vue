@@ -1,12 +1,27 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { web3Onboard, onboard } from "@/components/common/Web3Connector";
+import { web3Onboard, onboard, logout } from "@/components/common/Web3Connector";
 
 var taglines = ref([
     "Compete with users from all around the world",
     "Buy star players from the live auction",
     "Nurture and train the next cricket superstar"
-])
+]);
+
+// logout user on loading home page
+await logout();
+
+// login function
+function login() {
+    // connect to wallet
+    onboard.connectWallet()
+        .then(() => {
+            // redirect to team page
+            console.log(onboard.connectedWallet.value?.accounts[0].address);
+        }).catch(() => {
+            alert("Failed to login, Please try again")
+        });
+};
 </script>
 
 <template>
@@ -20,9 +35,9 @@ var taglines = ref([
         <v-container>
             <vue-writer :array=taglines class="taglines" :typeSpeed=75 :eraseSpeed=25 />
         </v-container>
-        <div class="signin">
-            <button>Sign In</button>
-        </div>
+        <v-container>
+            <v-btn @click="login()" class="mx-auto">Sign In</v-btn>
+        </v-container>
     </div>
 </template>
 
@@ -48,19 +63,6 @@ var taglines = ref([
 
 .centerDiv {
     padding-top: 15vh;
-}
-
-.signin{
-    background-color: #FFC700;
-    width: 15% !important;
-    height: 5vh;
-    border-radius: 15px;
-    color:black;
-    font-size: 20px;
-    text-align: center;
-    margin: auto;
-    width: 50%;
-    cursor: pointer;
 }
 
 /* Desktops */

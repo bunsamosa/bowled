@@ -4,7 +4,9 @@ import HomeRenderer from "@/components/home/HomeRenderer.vue"
 
 <template>
   <v-parallax :scale=1 src="images/background.jpg" class="h-screen">
-    <HomeRenderer />
+    <suspense>
+      <HomeRenderer />
+    </suspense>
   </v-parallax>
 </template>
 
