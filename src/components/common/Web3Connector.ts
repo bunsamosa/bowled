@@ -15,7 +15,24 @@ const web3Onboard = init({
             label: import.meta.env.VITE_CHAIN_LABEL,
             rpcUrl
         }
-    ]
+    ],
+    appMetadata: {
+        name: "Stumped",
+        icon: "images/stumped_logo_yellow.jpeg",
+        description: "T20 team management game"
+    },
+    accountCenter: {
+        desktop: {
+            enabled: false
+        },
+        mobile: {
+            enabled: false
+        }
+    },
+    apiKey: import.meta.env.VITE_BN_API_KEY,
+    connect: {
+        showSidebar: false
+    }
 });
 const onboard = useOnboard();
 
