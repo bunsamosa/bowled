@@ -20,6 +20,9 @@ var taglines = ref([
         <v-container>
             <vue-writer :array=taglines class="taglines" :typeSpeed=75 :eraseSpeed=25 />
         </v-container>
+        <div class="signin">
+            <button>Sign In</button>
+        </div>
     </div>
 </template>
 
@@ -47,6 +50,18 @@ var taglines = ref([
     padding-top: 15vh;
 }
 
+.signin{
+    background-color: #FFC700;
+    width: 15% !important;
+    height: 5vh;
+    border-radius: 15px;
+    color:black;
+    font-size: 20px;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    cursor: pointer;
+}
 
 /* Desktops */
 @media screen and (min-height : 720px) and (min-width: 1280px) and (-webkit-min-device-pixel-ratio: 1) {
