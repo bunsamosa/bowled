@@ -41,7 +41,7 @@ async function createTeam() {
     };
     let filteredData = await renderTeamData(teamData);
     console.log(filteredData);
-    router.push("/team");
+    router.push("/players");
 };
 </script>
 
