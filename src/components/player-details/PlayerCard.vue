@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import jsonData from "../../player-data.json"
 
-console.log(jsonData);
 </script>
 
 <template>
@@ -14,19 +13,17 @@ console.log(jsonData);
         <h3>{{people.player_name}}</h3>
         <h3>{{people.age}}</h3>
         </div>
+        <div class="skills">
+        <p>Fielding: {{people.fielding}}</p>
+        <p>Wicket Keeping:{{people.wicket_keeping}}</p>
+        <p>Batting seam:{{people.batting_seam}}</p>
+        <p>Batting spin:{{people.batting_spin}}</p>
+        <p>Bowling main: {{people["bowling main"]}}</p>
+        <p>Bowling variation: {{people.bowling_variation}}</p>
+        </div>
         <div class="player-deets">
-            <h3>Country:{{people.country}}</h3>
-            <h3>Experience:{{people.experience}}</h3>
             <h3>Form: {{people.form}}</h3>
             <h3>Fitness: {{people.fitness}}</h3>
-        </div>
-        <div class="skills">Skills
-        <p>fielding: {{people.fielding}}</p>
-        <p>wicket keeping:{{people.wicket_keeping}}</p>
-        <p>batting vs seam bowlers:{{people.batting_seam}}</p>
-        <p>batting vs spin bowlers:{{people.batting_spin}}</p>
-        <p>bowling main: {{people["bowling main"]}}</p>
-        <p>bowling variation: {{people.bowling_variation}}</p>
         </div>
     </div>
 </div>
@@ -73,6 +70,10 @@ console.log(jsonData);
     .heading{
         text-align: center;
         margin-top: 5%;
+    }
+    .skills p{
+        font-size: 17px;
+        font-weight: 800;
     }
 </style>
 
