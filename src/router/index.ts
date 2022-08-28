@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "@/views/HomeView.vue";
 import Team from "@/views/TeamView.vue";
+import PlayerScore from "@/views/PlayerScoreView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,6 +16,11 @@ const router = createRouter({
       path: "/team",
       name: "team",
       component: Team,
+    },
+    {
+      path: "/scoreboard",
+      name: "scoreboard",
+      component: PlayerScore,
     }
   ],
 });

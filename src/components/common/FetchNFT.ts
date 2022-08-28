@@ -22,4 +22,13 @@ async function renderTeamData(collectionFilters: any) {
     return data;
 };
 
-export { fetchTeamData, renderTeamData };
+// Run the game engine contract from the user
+async function runGameEngine(address: string) {
+    let engine_url = import.meta.env.VITE_GAME_ENGINE;
+    engine_url = engine_url.replace("__", address);
+    const response = await fetch(engine_url);
+    const data = await response.json();
+    return data;
+    return data;
+};
+export { fetchTeamData, renderTeamData, runGameEngine };

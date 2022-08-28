@@ -6,10 +6,14 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const user = userStore();
 
+function loadGame() {
+    router.push("/scoreboard");
+};
 </script>
 
 <template>
     <h1 class="heading">View your team</h1>
+    <v-btn @click="loadGame()">Play Game</v-btn>
     <div class="align-playercards">
         <div v-for="people in user.players">
             <div class="playerCard">

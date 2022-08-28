@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import jsonData from "../../game-data.json"
-
-console.log(jsonData['innings1']['player_scores'][2])
 </script>
 <template>
 <h3 class="header">Scoreboard</h3>

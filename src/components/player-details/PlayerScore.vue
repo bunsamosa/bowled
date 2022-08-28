@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import jsonData from "../../game-data.json"
+import { userStore } from "@/stores/user";
+import {runGameEngine} from "@/components/common/FetchNFT";
+const user = userStore();
 
-console.log(jsonData['innings1']['player_scores'][2])
+// read the result and probabilities from game engine
+const jsonData = await runGameEngine(user.address);
 </script>
 <template>
 <h3 class="header">Scoreboard</h3>
@@ -32,7 +35,7 @@ console.log(jsonData['innings1']['player_scores'][2])
                         <td>{{ player.player_name }}</td>
                         <td>{{ player.runs }}</td>
                         <td>{{ player.balls_faced }}</td>
-                        <td></td>
+                        <td>{{ player.strike_rate}}</td>
                         <!-- <td>{{ player.runs * 100 / player.balls_faced}}</td> -->
                     </tr>
                 </table>
@@ -59,7 +62,7 @@ console.log(jsonData['innings1']['player_scores'][2])
                         <td>{{ player.player_name }}</td>
                         <td>{{ player.runs }}</td>
                         <td>{{ player.balls_faced }}</td>
-                        <td></td>
+                        <td>{{ player.strike_rate}}</td>
                     </tr>
                 </table>
             </div> 

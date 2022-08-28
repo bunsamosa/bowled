@@ -3,7 +3,9 @@ import PlayerScore from "@/components/player-details/PlayerScore.vue"
 </script>
 
 <template>
-    <PlayerScore />
+    <Suspense>
+        <PlayerScore />
+    </Suspense>
 </template>
 
 <style>
