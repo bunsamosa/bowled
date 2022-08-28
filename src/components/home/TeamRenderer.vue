@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { userStore } from "@/stores/user";
 import { useRouter } from "vue-router";
-import { fetchData } from "@/components/common/FetchNFT";
+import { fetchTeamData } from "@/components/common/FetchNFT";
 import TeamBuilder from "@/components/home/TeamBuilder.vue";
 
 
@@ -21,18 +21,21 @@ if (address == "") {
 }
 else {
     // check if the player has a team
-    const data = await fetchData(address);
-    const nft_data = data["data"]["items"];
+    const nft_data = await fetchTeamData(address);
 
-    for (var ele of nft_data) {
-        if (ele.hasOwnProperty("description")) {
-            if (ele["description"] == "StumpedTeam") {
-                team_created.value = true;
-                user.teamName = ele["name"];
-                user.manager = ele["managerName"];
-                break;
-            };
+    // nft validation - contract, and metadata ID
+    if (nft_data.hasOwnProperty("contract")) {
+        if (nft_data["address"] != import.meta.env.VITE_CONTRACT_ADDRESS) {
+            // invalid NFT, redirect to sign up
+            team_created.value = false;
         }
+    }
+    else if (nft_data.hasOwnProperty("manager")) {
+        team_created.value = true;
+        user.manager = nft_data["manager"];
+        user.teamName = nft_data["team_name"];
+        user.country = nft_data["country"];
+        user.players = nft_data["players"];
     };
 };
 
@@ -40,6 +43,7 @@ else {
 </script>
 
 <template>
-    <TeamRenderer v-if="team_created"></TeamRenderer>
-    <TeamBuilder v-else></TeamBuilder>
+    <!-- <p v-if="team_created"></p>
+    <TeamBuilder v-else></TeamBuilder> -->
+    <TeamBuilder></TeamBuilder>
 </template>

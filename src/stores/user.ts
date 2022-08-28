@@ -6,6 +6,7 @@ export const userStore = defineStore({
     address: "",
     teamName: "",
     manager: "",
+    country: "",
     players: []
   })
 });
