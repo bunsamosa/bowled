@@ -1,6 +1,7 @@
 import numpy as np
 import math
 
+
 class GameEngine:
     def __init__(self, id, team1, team2, first_batting):
         print('--------------------Initiating Game-------------------')
@@ -36,47 +37,60 @@ class GameEngine:
         self.__striker = None
         self.__non_striker = None
         self.__batsman_ratings_prob = [[0.35, 0.175, 0.1, 0.075, 0.05, 0.05, 0.2],
-                                        [0.325, 0.2, 0.1, 0.075, 0.05, 0.05, 0.2],
-                                        [0.3, 0.2, 0.125, 0.075, 0.075, 0.05, 0.175],
-                                        [0.25, 0.2, 0.15, 0.075, 0.1, 0.075, 0.15],
-                                        [0.25, 0.2, 0.175, 0.075, 0.1, 0.05, 0.15],
-                                        [0.2, 0.2, 0.15, 0.075, 0.15, 0.1, 0.125],
-                                        [0.175, 0.2, 0.125, 0.075, 0.225, 0.1, 0.1],
-                                        [0.15, 0.2, 0.125, 0.075, 0.25, 0.125, 0.075],
-                                        [0.1, 0.2, 0.125, 0.075, 0.25, 0.175, 0.075],
-                                        [0.05, 0.225, 0.125, 0.075, 0.3, 0.175, 0.05]]
+                                       [0.325, 0.2, 0.1, 0.075, 0.05, 0.05, 0.2],
+                                       [0.3, 0.2, 0.125, 0.075,
+                                           0.075, 0.05, 0.175],
+                                       [0.25, 0.2, 0.15, 0.075, 0.1, 0.075, 0.15],
+                                       [0.25, 0.2, 0.175, 0.075, 0.1, 0.05, 0.15],
+                                       [0.2, 0.2, 0.15, 0.075, 0.15, 0.1, 0.125],
+                                       [0.175, 0.2, 0.125, 0.075, 0.225, 0.1, 0.1],
+                                       [0.15, 0.2, 0.125, 0.075,
+                                           0.25, 0.125, 0.075],
+                                       [0.1, 0.2, 0.125, 0.075,
+                                           0.25, 0.175, 0.075],
+                                       [0.05, 0.225, 0.125, 0.075, 0.3, 0.175, 0.05]]
 
         self.__bowler_ratings_prob = [[0.05, 0.0725, 0.1225, 0.125, 0.3, 0.23, 0.025, 0.075],
-                                        [0.05, 0.075, 0.15, 0.125, 0.3, 0.2, 0.025, 0.075],
-                                        [0.05, 0.075, 0.15, 0.15, 0.275, 0.175, 0.05, 0.075],
-                                        [0.075, 0.1, 0.15, 0.1, 0.25, 0.175, 0.075, 0.075],
-                                        [0.1, 0.075, 0.15, 0.1, 0.275, 0.15, 0.075, 0.075],
-                                        [0.15, 0.1, 0.15, 0.075, 0.225, 0.15, 0.075, 0.075],
-                                        [0.2, 0.1, 0.125, 0.075, 0.2, 0.125, 0.1, 0.075],
-                                        [0.2, 0.1, 0.125, 0.1, 0.15, 0.125, 0.125, 0.075],
-                                        [0.25, 0.1, 0.125, 0.1, 0.125, 0.075, 0.15, 0.075],
-                                        [0.25, 0.15, 0.125, 0.075, 0.1, 0.05, 0.175, 0.075]]
+                                      [0.05, 0.075, 0.15, 0.125,
+                                          0.3, 0.2, 0.025, 0.075],
+                                      [0.05, 0.075, 0.15, 0.15,
+                                          0.275, 0.175, 0.05, 0.075],
+                                      [0.075, 0.1, 0.15, 0.1, 0.25,
+                                          0.175, 0.075, 0.075],
+                                      [0.1, 0.075, 0.15, 0.1, 0.275,
+                                          0.15, 0.075, 0.075],
+                                      [0.15, 0.1, 0.15, 0.075,
+                                          0.225, 0.15, 0.075, 0.075],
+                                      [0.2, 0.1, 0.125, 0.075,
+                                          0.2, 0.125, 0.1, 0.075],
+                                      [0.2, 0.1, 0.125, 0.1, 0.15,
+                                          0.125, 0.125, 0.075],
+                                      [0.25, 0.1, 0.125, 0.1, 0.125,
+                                          0.075, 0.15, 0.075],
+                                      [0.25, 0.15, 0.125, 0.075, 0.1, 0.05, 0.175, 0.075]]
 
         # for i in range(10):
         #     if sum(self.__batsman_ratings_prob[i]) != 1.0 or sum(self.__bowler_ratings_prob[i]) != 1.0:
         #         print(i, sum(self.__batsman_ratings_prob[i]), sum(self.__bowler_ratings_prob[i]))
-
 
         self.start_inings()
 
         if self.__innings_number == 2:
             print("\n\n\n###################### GAME OVER ###########################\n")
             if self.game_results['innings1']['runs'] > self.game_results['innings2']['runs']:
-                print('\n\nTeam {} Rocks!!!'.format(self.game_results['innings1']['batting_team_name']))
-                print('\nTeam {} GEGE!!!'.format(self.game_results['innings2']['batting_team_name']))
+                print('\n\nTeam {} Rocks!!!'.format(
+                    self.game_results['innings1']['batting_team_name']))
+                print('\nTeam {} GEGE!!!'.format(
+                    self.game_results['innings2']['batting_team_name']))
                 self.game_results['winner'] = self.game_results['innings1']['batting_team_name']
             else:
-                print('\n\nTeam {} Rocks!!!'.format(self.game_results['innings2']['batting_team_name']))
-                print('\nTeam {} GEGE!!!'.format(self.game_results['innings1']['batting_team_name']))
+                print('\n\nTeam {} Rocks!!!'.format(
+                    self.game_results['innings2']['batting_team_name']))
+                print('\nTeam {} GEGE!!!'.format(
+                    self.game_results['innings1']['batting_team_name']))
                 self.game_results['winner'] = self.game_results['innings2']['batting_team_name']
 
         print(self.game_results)
-
 
     def start_inings(self):
         self.__total_overs = 20
@@ -113,7 +127,7 @@ class GameEngine:
         self.__bowlers_count = len(self.__bowling_team['bowling_lineup'])
 
         while self.__current_over <= self.__total_overs \
-             and self.__current_wicket < 10:
+                and self.__current_wicket < 10:
             self.__current_ball = 0
             self.play_over()
             if self.__innings_number == 2:
@@ -150,7 +164,6 @@ class GameEngine:
             self.__batting_team, self.__bowling_team = self.__bowling_team, self.__batting_team
             self.start_inings()
 
-
             # Check draw
 
     def play_over(self):
@@ -165,21 +178,24 @@ class GameEngine:
                 break
 
         self.__current_over += 1
-        self.__current_bowler = self.__bowling_team['bowling_lineup'][self.__current_over % self.__bowlers_count]
+        self.__current_bowler = self.__bowling_team['bowling_lineup'][self.__current_over %
+                                                                      self.__bowlers_count]
         print('\nCurrent score:')
         print('Team {} {}-{} ({}.{})'.format(self.__batting_team['team_name'],
-                        self.__current_runs, self.__current_wicket,
-                        self.__current_over, self.__current_ball))
-        print(self.__striker['player_name'], self.__striker['runs'], self.__non_striker['player_name'], self.__non_striker['runs'])
+                                             self.__current_runs, self.__current_wicket,
+                                             self.__current_over, self.__current_ball))
+        print(self.__striker['player_name'], self.__striker['runs'],
+              self.__non_striker['player_name'], self.__non_striker['runs'])
 
     def play_ball(self):
         if not 'batting_prob' in self.__striker:
-            batting_prob = self.__striker['batting_prob'] = self.__batsman_ratings_prob[self.__striker['batting_rating'] -1]
+            batting_prob = self.__striker['batting_prob'] = self.__batsman_ratings_prob[self.__striker['batting_rating'] - 1]
         else:
             batting_prob = self.__striker['batting_prob']
 
         if not 'bowling_prob' in self.__current_bowler:
-            bowling_prob = self.__current_bowler['bowling_prob'] = self.__bowler_ratings_prob[self.__current_bowler['bowling_rating'] -1]
+            bowling_prob = self.__current_bowler['bowling_prob'] = self.__bowler_ratings_prob[
+                self.__current_bowler['bowling_rating'] - 1]
         else:
             bowling_prob = self.__current_bowler['bowling_prob']
 
@@ -193,15 +209,17 @@ class GameEngine:
         outcome_prob = []
         for i in range(8):
             if i != 7:
-                outcome_prob.append((((1-bowling_prob[-1])*batting_prob[i]) + bowling_prob[i])/2)
+                outcome_prob.append(
+                    (((1-bowling_prob[-1])*batting_prob[i]) + bowling_prob[i])/2)
         outcome_prob.append(bowling_prob[-1])
 
         # try:
-        outcome = np.random.choice(np.arange(0,8), p=outcome_prob)
+        outcome = np.random.choice(np.arange(0, 8), p=outcome_prob)
         # except:
         #     print(outcome_prob)
 
-        self.__current_scores['balls'].append(self.__delivery_outcomes[outcome])
+        self.__current_scores['balls'].append(
+            self.__delivery_outcomes[outcome])
         # try:
         if outcome != 7:
             self.__striker['balls_faced'] += 1
@@ -255,10 +273,10 @@ class GameEngine:
         #     print(outcome_prob)
 
         print("{}.{} \t {} \t {}(Bat) \t {} (Bowl) \t {}-{}".format(
-                        self.__current_over, self.__current_ball,
-                        self.__delivery_outcomes[outcome], self.__striker['player_name'],
-                        self.__current_bowler['player_name'],
-                        self.__current_runs, self.__current_wicket))
+            self.__current_over, self.__current_ball,
+            self.__delivery_outcomes[outcome], self.__striker['player_name'],
+            self.__current_bowler['player_name'],
+            self.__current_runs, self.__current_wicket))
 
 
 
