@@ -47,7 +47,7 @@ function login() {
         <v-container>
             <vue-writer :array=taglines class="taglines" :typeSpeed=75 :eraseSpeed=25 />
         </v-container>
-        <v-container>
+        <v-container style="display: flex; justify-content: center;">
             <v-btn @click="login()" class="mx-auto">Sign In</v-btn>
         </v-container>
     </div>
