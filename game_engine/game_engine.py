@@ -135,6 +135,16 @@ class GameEngine:
                     break
             if self.__current_wicket == 10:
                 break
+        
+        if self.__striker['balls_faced'] == 0:
+                self.__striker['strike_rate'] = 0
+        else:
+            self.__striker['strike_rate'] = round(self.__striker['runs'] * 100 /self.__striker['balls_faced'], 1)
+        
+        if self.__non_striker['balls_faced'] == 0:
+            self.__non_striker['strike_rate'] = 0
+        else:
+            self.__non_striker['strike_rate'] = round(self.__non_striker['runs'] * 100 /self.__non_striker['balls_faced'], 1)
 
         self.__current_innings['player_scores'].append(self.__striker)
         self.__current_innings['player_scores'].append(self.__non_striker)
@@ -231,6 +241,11 @@ class GameEngine:
 
         elif outcome == 6:
             self.__striker['out'] = True
+            if self.__striker['balls_faced'] == 0:
+                self.__striker['strike_rate'] = 0
+            else:
+                self.__striker['strike_rate'] = round(self.__striker['runs'] * 100 /self.__striker['balls_faced'], 1)
+
             # self.__striker['wicket_by'] = self.__current_bowler
             self.__current_innings['player_scores'].append(self.__striker)
             self.__current_wicket += 1
