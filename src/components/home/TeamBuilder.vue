@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { userStore } from "@/stores/user";
 import { renderTeamData } from "@/components/common/FetchNFT";
 
@@ -7,6 +8,7 @@ let teamName = ref("");
 let manager = ref("");
 let country = ref("India");
 const user = userStore();
+const router = useRouter();
 const address = user.address;
 
 
@@ -39,7 +41,7 @@ async function createTeam() {
     };
     let filteredData = await renderTeamData(teamData);
     console.log(filteredData);
-
+    router.push("/team");
 };
 </script>
 

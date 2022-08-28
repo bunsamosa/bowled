@@ -4,7 +4,7 @@ import { userStore } from "@/stores/user";
 import { useRouter } from "vue-router";
 import { fetchTeamData } from "@/components/common/FetchNFT";
 import TeamBuilder from "@/components/home/TeamBuilder.vue";
-
+import TeamViewer from "@/components/game/TeamViewer.vue";
 
 // read user from store
 const router = useRouter();
@@ -43,7 +43,6 @@ else {
 </script>
 
 <template>
-    <!-- <p v-if="team_created"></p>
-    <TeamBuilder v-else></TeamBuilder> -->
-    <TeamBuilder></TeamBuilder>
+    <TeamViewer v-if="team_created"></TeamViewer>
+    <TeamBuilder v-else></TeamBuilder>
 </template>
