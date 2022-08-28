@@ -20,6 +20,13 @@ function login() {
     // connect to wallet
     onboard.connectWallet()
         .then(() => {
+            console.log(onboard.connectedWallet);
+            // set respective chain
+            onboard.setChain({
+                wallet: "MetaMask",
+                chainId: import.meta.env.VITE_CHAIN_ID
+            });
+
             // redirect to team page
             user.address = onboard.connectedWallet.value?.accounts[0].address as string;
             router.push("/team");
