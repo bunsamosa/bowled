@@ -40,6 +40,12 @@ async function createTeam() {
         "address": address
     };
     let filteredData = await renderTeamData(teamData);
+
+    user.manager = filteredData["manager"];
+    user.teamName = filteredData["team_name"];
+    user.country = filteredData["country"];
+    user.players = filteredData["players"];
+
     console.log(filteredData);
     router.push("/players");
 };
