@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { authClient } from '$lib/authClient';
-	import { appSession } from '$lib/sessionStore';
+	import { authClient } from '$lib/utils/authClient';
+	import { appSession } from '$lib/stores/sessionStore';
 
 	// set app session from auth
 	appSession.set(authClient.auth.session());
@@ -27,7 +27,7 @@
 </script>
 
 <div class="bg-black">
-	<div class="flex flex-col min-h-screen max-w-screen-xl m-auto">
+	<div class="flex flex-col h-screen max-w-screen-xl m-auto">
 		<div class="navbar flex-none">
 			<div class="flex-1">
 				<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
