@@ -1,11 +1,17 @@
 <script lang="ts">
 	import * as LottiePlayer from '@lottiefiles/lottie-player';
 	import { useForm, required, minLength, Hint } from 'svelte-use-form';
+	import { goto } from '$app/navigation';
 
 	// form validator
 	const form = useForm({
 		managerName: { validators: [required, minLength(3)] }
 	});
+
+	// move to team creation page
+	function createTeam() {
+		goto('/onboard/team');
+	}
 </script>
 
 <div class="hero bg-base-200 flex-1">
@@ -19,7 +25,7 @@
 		/>
 		<div>
 			<h1 class="text-5xl font-bold py-3">Welcome to Bowled!</h1>
-			<p class="py-5">
+			<p class="py-5 text-white">
 				Hello, my name is XYZ, and I'm your assistant.
 				<br />
 				I will assist you in managing our franchise.
@@ -33,18 +39,19 @@
 					<input
 						type="text"
 						placeholder="Type your name here"
-						class="input input-bordered w-full max-w-xs"
+						class="input input-bordered w-full max-w-xs text-white"
 						id="managerName"
 						name="managerName"
-						autofocus
 					/>
-					<Hint class="label-text" for="managerName" on="minLength" let:value>
+					<Hint class="label-text text-red-500" for="managerName" on="minLength" let:value>
 						Name should be atleast {value} characters long.
 					</Hint>
 				</form>
 			</div>
 			<div class="py-5">
-				<button class="btn btn-primary" disabled={!$form.valid}>Continue</button>
+				<button class="btn btn-outline" disabled={!$form.valid} on:click={createTeam}
+					>Continue</button
+				>
 			</div>
 		</div>
 	</div>
