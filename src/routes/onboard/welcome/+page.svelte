@@ -14,7 +14,7 @@
 	}
 </script>
 
-<div class="hero bg-base-200 flex-1">
+<div class="hero flex-1">
 	<div class="hero-content flex-col lg:flex-row">
 		<lottie-player
 			autoplay
@@ -43,12 +43,12 @@
 						id="managerName"
 						name="managerName"
 					/>
-					<Hint class="label-text text-red-500" for="managerName" on="minLength" let:value>
+					<Hint class="label-text text-red-500 py-1" for="managerName" on="minLength" let:value>
 						Name should be atleast {value} characters long
 					</Hint>
 				</form>
 			</div>
-			<div class="py-5">
+			<div class="py-3">
 				<button class="btn btn-outline" disabled={!$form.valid} on:click={createTeam}
 					>Continue</button
 				>
