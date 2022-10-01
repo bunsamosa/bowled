@@ -25,7 +25,7 @@
 		/>
 		<div>
 			<h1 class="text-5xl font-bold py-3">Welcome to Bowled!</h1>
-			<p class="py-5 text-white">
+			<p class="py-5">
 				Hello, my name is XYZ, and I'm your assistant.
 				<br />
 				I will assist you in managing our franchise.
@@ -39,7 +39,7 @@
 					<input
 						type="text"
 						placeholder="Type your name here"
-						class="input input-bordered w-full max-w-xs text-white"
+						class="input input-bordered w-full max-w-xs"
 						id="managerName"
 						name="managerName"
 					/>
@@ -49,7 +49,7 @@
 				</form>
 			</div>
 			<div class="py-3">
-				<button class="btn btn-outline" disabled={!$form.valid} on:click={createTeam}
+				<button class="btn btn-primary btn-outline" disabled={!$form.valid} on:click={createTeam}
 					>Continue</button
 				>
 			</div>

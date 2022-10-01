@@ -31,9 +31,9 @@
 	}
 </script>
 
-<div class="bg-black">
+<div class="bg-[#1d3a85]">
 	<div class="flex flex-col h-screen max-w-screen-xl m-auto">
-		<div class="navbar flex-none">
+		<div class="navbar flex-none text-white">
 			<div class="flex-1">
 				<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
 			</div>
@@ -51,7 +51,7 @@
 						class="my-5"
 						alt="You are the owner of a T20 Cricket franchise"
 					/>
-					<button class="btn btn-outline" on:click={startDemo}> Get Started </button>
+					<button class="btn btn-outline text-white" on:click={startDemo}> Get Started </button>
 					<!-- <p class="text-white text-xl">Coming Soon</p> -->
 					<!-- {#if $appSession}
 						<button class="btn btn-outline" on:click={signout}> Get Started </button>

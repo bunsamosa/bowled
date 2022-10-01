@@ -25,7 +25,7 @@
 		/>
 		<div>
 			<h1 class="text-3xl font-bold py-3">Let's give our team a catchy name</h1>
-			<p class="py-5 text-white">
+			<p class="py-5">
 				Hello XYZ,
 				<br />
 				Our players are excited to meet you ...
@@ -39,7 +39,7 @@
 					<input
 						type="text"
 						placeholder="Type team name here"
-						class="input input-bordered w-full max-w-xs text-white"
+						class="input input-bordered w-full max-w-xs"
 						id="teamName"
 						name="teamName"
 					/>
@@ -49,7 +49,8 @@
 				</form>
 			</div>
 			<div class="py-3">
-				<button class="btn btn-outline" disabled={!$form.valid} on:click={loadHome}>Continue</button
+				<button class="btn btn-primary btn-outline" disabled={!$form.valid} on:click={loadHome}
+					>Continue</button
 				>
 			</div>
 		</div>
