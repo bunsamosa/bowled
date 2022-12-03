@@ -14,7 +14,7 @@
 	});
 
 	// set app session from auth
-	appSession.set(authClient.auth.session());
+	// appSession.set(authClient.auth.session());
 
 	// signout and go home
 	async function signout() {

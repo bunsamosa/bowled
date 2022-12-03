@@ -1,13 +1,6 @@
 <script lang="ts">
 	import { authClient } from '$lib/utils/authClient';
-	import {
-		appSession,
-		userID,
-		managerName,
-		teamName,
-		ensAddress,
-		updateUserData
-	} from '$lib/stores/sessionStore';
+	import { appSession, updateUserData } from '$lib/stores/sessionStore';
 	import { goto } from '$app/navigation';
 	import { serverURL } from '$lib/utils/bowledClient';
 	import { getNotificationsContext } from 'svelte-notifications';
