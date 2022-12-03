@@ -1,8 +1,19 @@
 <script lang="ts">
 	import { authClient } from '$lib/utils/authClient';
-	import { appSession } from '$lib/stores/sessionStore';
+	import {
+		appSession,
+		userID,
+		managerName,
+		teamName,
+		ensAddress,
+		updateUserData
+	} from '$lib/stores/sessionStore';
 	import { goto } from '$app/navigation';
 	import { serverURL } from '$lib/utils/bowledClient';
+	import { getNotificationsContext } from 'svelte-notifications';
+
+	// notification handler
+	const { addNotification } = getNotificationsContext();
 
 	// update app session on auth state change
 	authClient.auth.onAuthStateChange((event, session) => {
@@ -31,6 +42,7 @@
 		// else onboard the user
 		let data = await response.json();
 		if (data['signup_complete']) {
+			await updateUserData(data);
 			goto('/game/home');
 		} else {
 			goto('/onboard/welcome');
@@ -45,8 +57,22 @@
 				{ redirectTo: window.location.origin }
 			);
 			if (error) throw error;
+			else {
+				addNotification({
+					text: 'Sign-in successful!',
+					position: 'bottom-center',
+					type: 'success',
+					removeAfter: 2000
+				});
+			}
 		} catch (error: any) {
-			alert(error.error_description || error.message);
+			console.log(error.message);
+			addNotification({
+				text: 'Unable to sign-in, please try again!',
+				position: 'bottom-center',
+				type: 'error',
+				removeAfter: 2000
+			});
 		}
 	}
 </script>
@@ -59,7 +85,9 @@
 			</div>
 			<div class="flex-none">
 				<ul class="menu menu-horizontal p-0">
-					<li><a href="https://wiki.bunsamosa.org/" class="btn btn-ghost normal-case">Wiki</a></li>
+					<li>
+						<a href="https://wiki.bunsamosa.org/" class="btn btn-ghost normal-case">Wiki</a>
+					</li>
 				</ul>
 			</div>
 		</div>
