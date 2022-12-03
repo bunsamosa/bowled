@@ -44,7 +44,8 @@
 			addNotification({
 				text: 'Success! Let me give you a tour of our facilities',
 				position: 'bottom-center',
-				type: 'success'
+				type: 'success',
+				removeAfter: 2000
 			});
 			goto('/game/home');
 		} else {
