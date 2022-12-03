@@ -37,6 +37,7 @@
 	"dependencies": {
 		"@lottiefiles/lottie-player": "^1.5.7",
 		"@supabase/supabase-js": "^1.35.6",
-		"daisyui": "^2.24.0"
+		"daisyui": "^2.24.0",
+		"svelte-notifications": "^0.9.98"
 	}
 }

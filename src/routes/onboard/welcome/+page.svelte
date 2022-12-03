@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as LottiePlayer from '@lottiefiles/lottie-player';
 	import { useForm, required, minLength, Hint } from 'svelte-use-form';
+	import { managerName } from '$lib/stores/sessionStore';
 	import { goto } from '$app/navigation';
 
 	// form validator
@@ -9,7 +10,9 @@
 	});
 
 	// move to team creation page
-	function createTeam() {
+	function onboardTeam() {
+		// save form data in store
+		managerName.set($form.managerName.value);
 		goto('/onboard/team');
 	}
 </script>
@@ -49,7 +52,7 @@
 				</form>
 			</div>
 			<div class="py-3">
-				<button class="btn btn-primary btn-outline" disabled={!$form.valid} on:click={createTeam}
+				<button class="btn btn-primary btn-outline" disabled={!$form.valid} on:click={onboardTeam}
 					>Continue</button
 				>
 			</div>
