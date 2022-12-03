@@ -1,9 +1,18 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { authClient } from '$lib/utils/authClient';
+	import { managerName, teamName } from '$lib/stores/sessionStore';
+	import { goto } from '$app/navigation';
 
 	// active tabs
 	$: homeTabActive = $page.url.pathname == '/game/home';
 	$: financeTabActive = $page.url.pathname == '/game/finance';
+
+	// signout and go home
+	async function signout() {
+		const { error } = await authClient.auth.signOut();
+		goto('/');
+	}
 </script>
 
 <!-- Layout for onboarding pages -->
@@ -23,7 +32,7 @@
 			>
 		</div>
 		<div class="navbar-end">
-			<button class="btn btn-ghost normal-case">Exit</button>
+			<button class="btn btn-ghost normal-case" on:click={signout}>Exit</button>
 		</div>
 	</div>
 	<slot />

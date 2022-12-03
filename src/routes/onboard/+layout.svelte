@@ -9,7 +9,7 @@
 		// if user is not logged in - send him to home page
 		if (!$appSession) {
 			console.log('User not logged in');
-			goHome();
+			goto('/');
 		}
 	});
 
@@ -19,11 +19,6 @@
 	// signout and go home
 	async function signout() {
 		const { error } = await authClient.auth.signOut();
-		goHome();
-	}
-
-	// navigate to home page
-	function goHome() {
 		goto('/');
 	}
 </script>
