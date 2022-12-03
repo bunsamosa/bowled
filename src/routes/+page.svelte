@@ -1,34 +1,41 @@
 <script lang="ts">
-	// import { authClient } from '$lib/utils/authClient';
-	// import { appSession } from '$lib/stores/sessionStore';
-
-	// // set app session from auth
-	// appSession.set(authClient.auth.session());
-
-	// // update app session on auth state change
-	// authClient.auth.onAuthStateChange((event, session) => {
-	// 	appSession.set(session);
-	// });
-
-	// // signn in with oauth provider
-	// async function signIn() {
-	// 	try {
-	// 		const { error } = await authClient.auth.signIn({ provider: 'google' });
-	// 		if (error) throw error;
-	// 	} catch (error: any) {
-	// 		alert(error.error_description || error.message);
-	// 	}
-	// }
-
-	// // signout
-	// async function signout() {
-	// 	const { error } = await authClient.auth.signOut();
-	// }
+	import { authClient } from '$lib/utils/authClient';
+	import { appSession } from '$lib/stores/sessionStore';
 	import { goto } from '$app/navigation';
 
-	function startDemo() {
-		goto('/onboard/welcome');
+	// set app session from auth
+	appSession.set(authClient.auth.session());
+
+	// update app session on auth state change
+	authClient.auth.onAuthStateChange((event, session) => {
+		appSession.set(session);
+	});
+
+	// sign in with oauth provider
+	async function signIn() {
+		try {
+			const { error } = await authClient.auth.signIn(
+				{ provider: 'google' },
+				{ redirectTo: window.location.origin + '/onboard/welcome' }
+			);
+			if (error) throw error;
+		} catch (error: any) {
+			alert(error.error_description || error.message);
+		}
 	}
+
+	// if user is logged in - redirect to welcome page
+	// if ($appSession) {
+	// 	console.log('User logged in: ', $appSession.access_token);
+	// 	welcome();
+	// } else {
+	// 	console.log('User not logged in');
+	// }
+
+	// move to welcome page
+	// function welcome() {
+	// 	goto('/onboard/welcome');
+	// }
 </script>
 
 <div class="bg-[#1d3a85]">
@@ -51,12 +58,10 @@
 						class="my-5"
 						alt="You are the owner of a T20 Cricket franchise"
 					/>
-					<button class="btn btn-outline text-white" on:click={startDemo}> Get Started </button>
+					<button class="btn btn-outline text-white" on:click={signIn}> Get Started </button>
 					<!-- <p class="text-white text-xl">Coming Soon</p> -->
-					<!-- {#if $appSession}
-						<button class="btn btn-outline" on:click={signout}> Get Started </button>
-					{:else}
-						<button class="btn btn-outline" on:click={signIn}> Get Started </button>
+					<!-- {#if !$appSession}
+						<button class="btn btn-outline text-white" on:click={signIn}> Get Started </button>
 					{/if} -->
 				</div>
 			</div>
