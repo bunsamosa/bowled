@@ -3,21 +3,18 @@
 	import { appSession } from '$lib/stores/sessionStore';
 	import { goto } from '$app/navigation';
 
-	// set app session from auth
-	// appSession.set(authClient.auth.session());
-
 	// update app session on auth state change
 	authClient.auth.onAuthStateChange((event, session) => {
 		appSession.set(session);
-
 		// if user is not logged in - send him to home page
 		if (!$appSession) {
 			console.log('User not logged in');
 			goHome();
-		} else {
-			// check user status
 		}
 	});
+
+	// set app session from auth
+	appSession.set(authClient.auth.session());
 
 	// signout and go home
 	async function signout() {

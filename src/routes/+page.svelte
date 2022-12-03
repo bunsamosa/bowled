@@ -2,40 +2,53 @@
 	import { authClient } from '$lib/utils/authClient';
 	import { appSession } from '$lib/stores/sessionStore';
 	import { goto } from '$app/navigation';
-
-	// set app session from auth
-	appSession.set(authClient.auth.session());
+	import { serverURL } from '$lib/utils/bowledClient';
 
 	// update app session on auth state change
 	authClient.auth.onAuthStateChange((event, session) => {
 		appSession.set(session);
+
+		// if user is logged in - redirect based on user status
+		if ($appSession) {
+			checkUserStatus();
+		}
 	});
+
+	// set app session from auth
+	appSession.set(authClient.auth.session());
+
+	// check user status
+	async function checkUserStatus() {
+		let access_token = $appSession?.access_token;
+		let url = serverURL + '/user';
+		const response = await fetch(url, {
+			headers: {
+				Authorization: 'Bearer ' + access_token
+			}
+		});
+
+		// if user has completed sign-up send the user to game home
+		// else onboard the user
+		let data = await response.json();
+		if (data['signup_complete']) {
+			goto('/game/home');
+		} else {
+			goto('/onboard/welcome');
+		}
+	}
 
 	// sign in with oauth provider
 	async function signIn() {
 		try {
 			const { error } = await authClient.auth.signIn(
 				{ provider: 'google' },
-				{ redirectTo: window.location.origin + '/onboard/welcome' }
+				{ redirectTo: window.location.origin }
 			);
 			if (error) throw error;
 		} catch (error: any) {
 			alert(error.error_description || error.message);
 		}
 	}
-
-	// if user is logged in - redirect to welcome page
-	// if ($appSession) {
-	// 	console.log('User logged in: ', $appSession.access_token);
-	// 	welcome();
-	// } else {
-	// 	console.log('User not logged in');
-	// }
-
-	// move to welcome page
-	// function welcome() {
-	// 	goto('/onboard/welcome');
-	// }
 </script>
 
 <div class="bg-[#1d3a85]">
