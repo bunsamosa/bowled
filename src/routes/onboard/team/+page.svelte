@@ -24,7 +24,6 @@
 			manager_name: $managerName,
 			team_name: $teamName
 		};
-		console.log(payload);
 
 		const response = await fetch(url, {
 			method: 'POST',
@@ -38,7 +37,6 @@
 		if (response.status == 200) {
 			// save user data
 			let data = await response.json();
-			console.log(data);
 			updateUserData(data);
 
 			addNotification({
