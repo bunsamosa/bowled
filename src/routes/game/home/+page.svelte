@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { serverURL } from '$lib/utils/bowledClient';
-	import { appSession, updateUserData } from '$lib/stores/sessionStore';
+	import { appSession } from '$lib/stores/sessionStore';
 
 	let playersData: any = [];
 

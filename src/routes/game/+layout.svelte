@@ -7,6 +7,7 @@
 	// active tabs
 	$: homeTabActive = $page.url.pathname == '/game/home';
 	$: financeTabActive = $page.url.pathname == '/game/finance';
+	$: matchTabActive = $page.url.pathname == '/game/match';
 
 	// signout and go home
 	async function signout() {
@@ -25,10 +26,13 @@
 			<a class="btn btn-ghost normal-case tab" class:btn-active={homeTabActive} href="/game/home">
 				Home
 			</a>
-			<a
+			<!-- <a
 				class="btn btn-ghost normal-case tab"
 				class:btn-active={financeTabActive}
 				href="/game/finance">Finance</a
+			> -->
+			<a class="btn btn-ghost normal-case tab" class:btn-active={matchTabActive} href="/game/match"
+				>Match</a
 			>
 		</div>
 		<div class="navbar-end">
