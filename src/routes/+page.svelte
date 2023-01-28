@@ -70,9 +70,9 @@
 	}
 </script>
 
-<div class="bg-[#1d3a85]">
+<div>
 	<div class="flex flex-col h-screen max-w-screen-xl m-auto">
-		<div class="navbar flex-none text-white">
+		<div class="navbar flex-none">
 			<div class="flex-1">
 				<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
 			</div>
@@ -84,21 +84,53 @@
 				</ul>
 			</div>
 		</div>
-		<div class="hero flex-1">
-			<div class="hero-content text-center">
-				<div class="max-w-2xl">
-					<img
-						src="images/hero.png"
-						class="my-5"
-						alt="You are the owner of a T20 Cricket franchise"
-					/>
-					<button class="btn btn-outline text-white" on:click={signIn}> Get Started </button>
-					<!-- <p class="text-white text-xl">Coming Soon</p> -->
-					<!-- {#if !$appSession}
-						<button class="btn btn-outline text-white" on:click={signIn}> Get Started </button>
-					{/if} -->
+		<div class="hero min-h-screen">
+			<div class="hero-content flex-col lg:flex-row">
+				<img
+					src="/images/bowled.png"
+					class="max-w-sm rounded-lg shadow-2xl"
+				/>
+				<div>
+					<h1 class="text-5xl font-bold">Box Office News!</h1>
+					<p class="py-6">
+						Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
+						quasi. In deleniti eaque aut repudiandae et a id nisi.
+					</p>
+					<button class="btn btn-primary">Get Started</button>
 				</div>
 			</div>
 		</div>
+
+		<!-- <div class="hero flex-1">
+			<div class="hero-content text-center">
+				<div class="flex mb-4">
+					<div class="w-1/2 h-12 hero-img">
+						<img
+						src="/images/bowled.png"
+						class="my-5"
+						alt="You are the owner of a T20 Cricket franchise"
+					/>
+					</div>
+					<div class="w-1/2 h-12">
+						<h1 class="hero-h1">Build your Dream T20 team Now!</h1>
+						<p class="hero-p">Choose - Train - Play</p>
+						<button class="hero-btn btn-outline text-white" on:click={signIn}> Get Started </button>
+					</div>
+				</div>
+			</div>
+		</div> -->
+	</div>
+</div>
+<div class="team-sec">
+	<div>
+		<img 
+		src="/images/team.png"
+		class="my-5 team-img"
+		alt="Build your team"
+		/>
+	</div>
+	<div class="team-text">
+		<h1 class="team-h1">Choose Your Team</h1>
+		<p class="team-p">Train the team and play against your friends or a bot and see live commentary!</p>
 	</div>
 </div>
