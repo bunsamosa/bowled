@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { serverURL } from '$lib/utils/bowledClient';
 	import { appSession } from '$lib/stores/sessionStore';
+	import { goto } from '$app/navigation';
 
 	let teamData: any = [];
 
@@ -15,6 +16,10 @@
 			teamData = [...teams];
 		}
 	}
+
+	async function chooseOpponent(myTeam: string) {
+		goto('/live/opponent?self=' + myTeam);
+	}
 </script>
 
 <div class="hero flex-1">
@@ -28,7 +33,9 @@
 					<div class="card-body">
 						<h2 class="card-title">{team.team_name}</h2>
 						<div class="card-actions justify-end">
-							<button class="btn btn-primary">Pick</button>
+							<button class="btn btn-primary" on:click={() => chooseOpponent(team.team_id)}
+								>Pick</button
+							>
 						</div>
 					</div>
 				</div>
