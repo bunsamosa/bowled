@@ -128,7 +128,7 @@
 				<div class="carousel carousel-center rounded-box">
 					<div class="steps">
 						<div class="carousel-item step">
-							<div class="card w-96 bg-base-100 shadow-xl">
+							<div class="card w-96 bg-base-100 ">
 								<figure class="px-10 pt-7">
 									<img src="/images/choose_team.png" alt="choose-team" class="rounded-xl" />
 								</figure>
@@ -138,7 +138,7 @@
 							</div>
 						</div>
 						<div class="carousel-item step">
-							<div class="card w-96 bg-base-100 shadow-xl">
+							<div class="card w-96 bg-base-100 ">
 								<figure class="px-2 pt-12">
 									<img src="/images/strategies.png" alt="set-lineup" class="rounded-xl" />
 								</figure>
@@ -148,7 +148,7 @@
 							</div>
 						</div>
 						<div class="carousel-item step">
-							<div class="card w-96 bg-base-100 shadow-xl">
+							<div class="card w-96 bg-base-100">
 								<figure class="px-5 pt-10">
 									<img src="/images/watch_match.jpg" alt="play" class="rounded-xl" />
 								</figure>
