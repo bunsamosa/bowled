@@ -4,6 +4,8 @@
 	import { goto } from '$app/navigation';
 	import { serverURL } from '$lib/utils/bowledClient';
 	import { getNotificationsContext } from 'svelte-notifications';
+	import Fa from 'svelte-fa/src/fa.svelte';
+	import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 	// notification handler
 	const { addNotification } = getNotificationsContext();
@@ -70,37 +72,43 @@
 	}
 </script>
 
-<div>
-	<div class="flex flex-col h-screen max-w-screen-xl m-auto">
-		<div class="navbar flex-none">
-			<div class="flex-1">
-				<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
-			</div>
-			<div class="flex-none">
-				<ul class="menu menu-horizontal p-0">
-					<li>
-						<a href="https://wiki.bunsamosa.org/" class="btn btn-ghost normal-case">Wiki</a>
-					</li>
-				</ul>
-			</div>
+<div class="max-w-screen-xl m-auto">
+	<div class="sticky top-0 navbar flex-none">
+		<div class="flex-1">
+			<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
 		</div>
-		<div class="hero min-h-screen">
+		<div class="flex-none">
+			<ul class="menu menu-horizontal p-0">
+				<li>
+					<!-- Twitter icon -->
+					<a href="https://twitter.com/bowledGG" target="_blank"><Fa icon={faTwitter} /></a>
+				</li>
+				<li>
+					<a href="https://wiki.bunsamosa.org/" class="btn btn-ghost normal-case">Wiki</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="flex flex-col h-screen">
+		<div class="hero flex-1">
 			<div class="hero-content flex-col lg:flex-row">
 				<img
-					src="/images/bowled.png"
-					class="max-w-sm rounded-lg shadow-2xl"
+					src="/images/bald_guy_meme.png"
+					class="max-w-lg rounded-lg"
+					alt="Pakistani bald guy meme"
 				/>
 				<div>
-					<h1 class="text-5xl font-bold">Box Office News!</h1>
+					<h1 class="text-5xl font-bold">Ever felt this while watching cricket?</h1>
 					<p class="py-6">
-						Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-						quasi. In deleniti eaque aut repudiandae et a id nisi.
+						Now you can own a T20 Cricket franchise.
+						<br />
+						Choose your team, Train your players and Compete with your friends to become the Best Manager
+						in the world!
 					</p>
-					<button class="btn btn-primary">Get Started</button>
+					<button class="btn btn-primary" on:click={signIn}>Get Started</button>
 				</div>
 			</div>
 		</div>
-
 		<!-- <div class="hero flex-1">
 			<div class="hero-content text-center">
 				<div class="flex mb-4">
@@ -120,17 +128,70 @@
 			</div>
 		</div> -->
 	</div>
-</div>
-<div class="team-sec">
-	<div>
-		<img 
-		src="/images/team.png"
-		class="my-5 team-img"
-		alt="Build your team"
-		/>
+	<div class="flex flex-col h-screen">
+		<div class="hero flex-1">
+			<div class="hero-content flex-col lg:flex-row">
+				<div class="carousel carousel-center rounded-box">
+					<ul class="steps">
+						<li class="step">
+							<div class="carousel-item">
+								<div class="card w-96 bg-base-100 shadow-xl">
+									<figure class="px-10 pt-10">
+										<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
+									</figure>
+									<div class="card-body items-center text-center">
+										<h2 class="card-title">Shoes!</h2>
+										<p>If a dog chews shoes whose shoes does he choose?</p>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="step">
+							<div class="carousel-item">
+								<div class="card w-96 bg-base-100 shadow-xl">
+									<figure class="px-10 pt-10">
+										<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
+									</figure>
+									<div class="card-body items-center text-center">
+										<h2 class="card-title">Shoes!</h2>
+										<p>If a dog chews shoes whose shoes does he choose?</p>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="step">
+							<div class="carousel-item">
+								<div class="card w-96 bg-base-100 shadow-xl">
+									<figure class="px-10 pt-10">
+										<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
+									</figure>
+									<div class="card-body items-center text-center">
+										<h2 class="card-title">Shoes!</h2>
+										<p>If a dog chews shoes whose shoes does he choose?</p>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="team-text">
-		<h1 class="team-h1">Choose Your Team</h1>
-		<p class="team-p">Train the team and play against your friends or a bot and see live commentary!</p>
+	<div class="flex flex-col h-screen">
+		<div class="hero flex-1">
+			<div class="hero-content flex-col lg:flex-row">
+				<img src="/images/rcb_csk.png" class="max-w-2xl rounded-lg" alt="RCB vs CSK logo" />
+				<div>
+					<h1 class="text-5xl font-bold">Choose Your Team</h1>
+					<p class="py-6">
+						Train the team and play against your friends or a bot and see live commentary!
+						<br />
+						Choose your team, Train your players and Compete with your friends to become the Best Manager
+						in the world!
+					</p>
+					<button class="btn btn-primary" on:click={signIn}>Get Started</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
