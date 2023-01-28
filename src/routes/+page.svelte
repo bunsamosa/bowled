@@ -1,74 +1,78 @@
 <script lang="ts">
-	import { authClient } from '$lib/utils/authClient';
-	import { appSession, updateUserData } from '$lib/stores/sessionStore';
-	import { goto } from '$app/navigation';
-	import { serverURL } from '$lib/utils/bowledClient';
-	import { getNotificationsContext } from 'svelte-notifications';
+	// import { authClient } from '$lib/utils/authClient';
+	// import { appSession, updateUserData } from '$lib/stores/sessionStore';
+	// import { goto } from '$app/navigation';
+	// import { serverURL } from '$lib/utils/bowledClient';
+	// import { getNotificationsContext } from 'svelte-notifications';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+	import { goto } from '$app/navigation';
 
-	// notification handler
-	const { addNotification } = getNotificationsContext();
+	// // notification handler
+	// const { addNotification } = getNotificationsContext();
 
-	// update app session on auth state change
-	authClient.auth.onAuthStateChange((event, session) => {
-		appSession.set(session);
+	// // update app session on auth state change
+	// authClient.auth.onAuthStateChange((event, session) => {
+	// 	appSession.set(session);
 
-		// if user is logged in - redirect based on user status
-		if ($appSession) {
-			checkUserStatus();
-		}
-	});
+	// 	// if user is logged in - redirect based on user status
+	// 	if ($appSession) {
+	// 		checkUserStatus();
+	// 	}
+	// });
 
-	// set app session from auth
-	appSession.set(authClient.auth.session());
+	// // set app session from auth
+	// appSession.set(authClient.auth.session());
 
-	// check user status
-	async function checkUserStatus() {
-		let access_token = $appSession?.access_token;
-		let url = serverURL + '/user';
-		const response = await fetch(url, {
-			headers: {
-				Authorization: 'Bearer ' + access_token
-			}
-		});
+	// // check user status
+	// async function checkUserStatus() {
+	// 	let access_token = $appSession?.access_token;
+	// 	let url = serverURL + '/user';
+	// 	const response = await fetch(url, {
+	// 		headers: {
+	// 			Authorization: 'Bearer ' + access_token
+	// 		}
+	// 	});
 
-		// if user has completed sign-up send the user to game home
-		// else onboard the user
-		let data = await response.json();
-		if (data['signup_complete']) {
-			await updateUserData(data);
-			goto('/game/home');
-		} else {
-			goto('/onboard/welcome');
-		}
-	}
+	// 	// if user has completed sign-up send the user to game home
+	// 	// else onboard the user
+	// 	let data = await response.json();
+	// 	if (data['signup_complete']) {
+	// 		await updateUserData(data);
+	// 		goto('/game/home');
+	// 	} else {
+	// 		goto('/onboard/welcome');
+	// 	}
+	// }
 
-	// sign in with oauth provider
+	// // sign in with oauth provider
+	// async function signIn() {
+	// 	try {
+	// 		const { error } = await authClient.auth.signIn(
+	// 			{ provider: 'google' },
+	// 			{ redirectTo: window.location.origin }
+	// 		);
+	// 		if (error) throw error;
+	// 		else {
+	// 			addNotification({
+	// 				text: 'Sign-in successful!',
+	// 				position: 'bottom-center',
+	// 				type: 'success',
+	// 				removeAfter: 2000
+	// 			});
+	// 		}
+	// 	} catch (error: any) {
+	// 		console.log(error.message);
+	// 		addNotification({
+	// 			text: 'Unable to sign-in, please try again!',
+	// 			position: 'bottom-center',
+	// 			type: 'error',
+	// 			removeAfter: 2000
+	// 		});
+	// 	}
+	// }
 	async function signIn() {
-		try {
-			const { error } = await authClient.auth.signIn(
-				{ provider: 'google' },
-				{ redirectTo: window.location.origin }
-			);
-			if (error) throw error;
-			else {
-				addNotification({
-					text: 'Sign-in successful!',
-					position: 'bottom-center',
-					type: 'success',
-					removeAfter: 2000
-				});
-			}
-		} catch (error: any) {
-			console.log(error.message);
-			addNotification({
-				text: 'Unable to sign-in, please try again!',
-				position: 'bottom-center',
-				type: 'error',
-				removeAfter: 2000
-			});
-		}
+		goto('/live/teams');
 	}
 </script>
 
@@ -84,7 +88,9 @@
 				<a href="https://twitter.com/bowledGG" target="_blank"><Fa icon={faTwitter} /></a>
 			</li>
 			<li>
-				<a href="https://wiki.bunsamosa.org/" class="btn btn-ghost normal-case">Wiki</a>
+				<a href="https://wiki.bunsamosa.org/" target="_blank" class="btn btn-ghost normal-case"
+					>Wiki</a
+				>
 			</li>
 		</ul>
 	</div>
@@ -107,8 +113,8 @@
 						Your team, Your strategies vs the world.
 						<br />Build your dream T20 team now.
 					</p>
-					<button class="btn btn-primary" on:click={signIn}>Play Now</button>
-					<a class="btn btn-outline btn-primary" href="#stages">Learn More</a>
+					<button class="btn btn-primary normal-case" on:click={signIn}>Play Now</button>
+					<a class="btn btn-outline btn-primary normal-case" href="#stages">Learn More</a>
 				</div>
 			</div>
 		</div>
