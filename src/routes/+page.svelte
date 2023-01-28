@@ -108,7 +108,7 @@
 						<br />Build your dream T20 team now.
 					</p>
 					<button class="btn btn-primary" on:click={signIn}>Play Now</button>
-					<a class="btn btn-outline" href="#stages">Learn More</a>
+					<a class="btn btn-outline btn-primary" href="#stages">Learn More</a>
 				</div>
 			</div>
 		</div>
@@ -123,45 +123,43 @@
 					<div class="steps">
 						<div class="carousel-item step">
 							<div class="card w-96 bg-base-100 shadow-xl">
-								<figure class="px-10 pt-10">
-									<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
+								<figure class="px-10 pt-7">
+									<img src="/images/choose_team.png" alt="choose-team" class="rounded-xl" />
 								</figure>
 								<div class="card-body items-center text-center">
-									<h2 class="card-title">Shoes!</h2>
-									<p>If a dog chews shoes whose shoes does he choose?</p>
+									<h2 class="card-title">Choose your favorite team</h2>
 								</div>
 							</div>
 						</div>
 						<div class="carousel-item step">
 							<div class="card w-96 bg-base-100 shadow-xl">
-								<figure class="px-10 pt-10">
-									<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
+								<figure class="px-2 pt-12">
+									<img src="/images/strategies.png" alt="set-lineup" class="rounded-xl" />
 								</figure>
 								<div class="card-body items-center text-center">
-									<h2 class="card-title">Shoes!</h2>
-									<p>If a dog chews shoes whose shoes does he choose?</p>
+									<h2 class="card-title">Set your strategies</h2>
 								</div>
 							</div>
 						</div>
 						<div class="carousel-item step">
 							<div class="card w-96 bg-base-100 shadow-xl">
-								<figure class="px-10 pt-10">
-									<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
+								<figure class="px-5 pt-10">
+									<img src="/images/watch_match.jpg" alt="play" class="rounded-xl" />
 								</figure>
 								<div class="card-body items-center text-center">
-									<h2 class="card-title">Shoes!</h2>
-									<p>If a dog chews shoes whose shoes does he choose?</p>
+									<h2 class="card-title">Follow the live match!</h2>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<button class="btn btn-primary" on:click={signIn}>Play Now</button>
 			</div>
 		</div>
 	</div>
 
-	<!-- Tem vs Team -->
-	<div class="flex flex-col h-screen">
+	<!-- Team vs Team -->
+	<!-- <div class="flex flex-col h-screen">
 		<div class="hero flex-1">
 			<div class="hero-content flex-col lg:flex-row">
 				<img src="/images/rcb_csk.png" class="max-w-2xl rounded-lg" alt="RCB vs CSK logo" />
@@ -177,5 +175,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>
