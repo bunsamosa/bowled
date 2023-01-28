@@ -72,117 +72,101 @@
 	}
 </script>
 
-<div class="max-w-screen-xl m-auto">
-	<div class="sticky top-0 navbar flex-none">
-		<div class="flex-1">
-			<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
-		</div>
-		<div class="flex-none">
-			<ul class="menu menu-horizontal p-0">
-				<li>
-					<!-- Twitter icon -->
-					<a href="https://twitter.com/bowledGG" target="_blank"><Fa icon={faTwitter} /></a>
-				</li>
-				<li>
-					<a href="https://wiki.bunsamosa.org/" class="btn btn-ghost normal-case">Wiki</a>
-				</li>
-			</ul>
-		</div>
+<!-- Nav bar -->
+<div class="sticky z-50 top-0 navbar max-w-screen-xl m-auto flex-none">
+	<div class="flex-1">
+		<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
 	</div>
+	<div class="flex-none">
+		<ul class="menu menu-horizontal p-0">
+			<li>
+				<!-- Twitter icon -->
+				<a href="https://twitter.com/bowledGG" target="_blank"><Fa icon={faTwitter} /></a>
+			</li>
+			<li>
+				<a href="https://wiki.bunsamosa.org/" class="btn btn-ghost normal-case">Wiki</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Landing page -->
+<div class="max-w-screen-xl m-auto">
+	<!-- Copy and meme -->
 	<div class="flex flex-col h-screen">
 		<div class="hero flex-1">
 			<div class="hero-content flex-col lg:flex-row">
 				<img
-					src="/images/bald_guy_meme.png"
-					class="max-w-lg rounded-lg"
-					alt="Pakistani bald guy meme"
+					src="/images/cricket_meme.gif"
+					class="max-w-lg rounded-lg shadow-lg"
+					alt="Disappointed bald guy cricket meme"
 				/>
 				<div>
-					<h1 class="text-5xl font-bold">Ever felt this while watching cricket?</h1>
-					<p class="py-6">
-						Now you can own a T20 Cricket franchise.
-						<br />
-						Choose your team, Train your players and Compete with your friends to become the Best Manager
-						in the world!
+					<h1 class="text-5xl font-bold">Ever felt this watching cricket? Say no more!</h1>
+					<p class="py-6 text-2xl font-semibold">
+						Your team, Your strategies vs the world.
+						<br />Build your dream T20 team now.
 					</p>
-					<button class="btn btn-primary" on:click={signIn}>Get Started</button>
+					<button class="btn btn-primary" on:click={signIn}>Play Now</button>
+					<a class="btn btn-outline" href="#stages">Learn More</a>
 				</div>
 			</div>
 		</div>
-		<!-- <div class="hero flex-1">
-			<div class="hero-content text-center">
-				<div class="flex mb-4">
-					<div class="w-1/2 h-12 hero-img">
-						<img
-						src="/images/bowled.png"
-						class="my-5"
-						alt="You are the owner of a T20 Cricket franchise"
-					/>
-					</div>
-					<div class="w-1/2 h-12">
-						<h1 class="hero-h1">Build your Dream T20 team Now!</h1>
-						<p class="hero-p">Choose - Train - Play</p>
-						<button class="hero-btn btn-outline text-white" on:click={signIn}> Get Started </button>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	</div>
-	<div class="flex flex-col h-screen">
+
+	<!-- How to play -->
+	<div class="flex flex-col h-screen" id="stages">
 		<div class="hero flex-1">
-			<div class="hero-content flex-col lg:flex-row">
+			<div class="hero-content flex-col">
+				<h1 class="text-5xl font-bold">How to play?</h1>
 				<div class="carousel carousel-center rounded-box">
-					<ul class="steps">
-						<li class="step">
-							<div class="carousel-item">
-								<div class="card w-96 bg-base-100 shadow-xl">
-									<figure class="px-10 pt-10">
-										<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
-									</figure>
-									<div class="card-body items-center text-center">
-										<h2 class="card-title">Shoes!</h2>
-										<p>If a dog chews shoes whose shoes does he choose?</p>
-									</div>
+					<div class="steps">
+						<div class="carousel-item step">
+							<div class="card w-96 bg-base-100 shadow-xl">
+								<figure class="px-10 pt-10">
+									<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
+								</figure>
+								<div class="card-body items-center text-center">
+									<h2 class="card-title">Shoes!</h2>
+									<p>If a dog chews shoes whose shoes does he choose?</p>
 								</div>
 							</div>
-						</li>
-						<li class="step">
-							<div class="carousel-item">
-								<div class="card w-96 bg-base-100 shadow-xl">
-									<figure class="px-10 pt-10">
-										<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
-									</figure>
-									<div class="card-body items-center text-center">
-										<h2 class="card-title">Shoes!</h2>
-										<p>If a dog chews shoes whose shoes does he choose?</p>
-									</div>
+						</div>
+						<div class="carousel-item step">
+							<div class="card w-96 bg-base-100 shadow-xl">
+								<figure class="px-10 pt-10">
+									<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
+								</figure>
+								<div class="card-body items-center text-center">
+									<h2 class="card-title">Shoes!</h2>
+									<p>If a dog chews shoes whose shoes does he choose?</p>
 								</div>
 							</div>
-						</li>
-						<li class="step">
-							<div class="carousel-item">
-								<div class="card w-96 bg-base-100 shadow-xl">
-									<figure class="px-10 pt-10">
-										<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
-									</figure>
-									<div class="card-body items-center text-center">
-										<h2 class="card-title">Shoes!</h2>
-										<p>If a dog chews shoes whose shoes does he choose?</p>
-									</div>
+						</div>
+						<div class="carousel-item step">
+							<div class="card w-96 bg-base-100 shadow-xl">
+								<figure class="px-10 pt-10">
+									<img src="/images/csk_logo.png" alt="Shoes" class="rounded-xl" />
+								</figure>
+								<div class="card-body items-center text-center">
+									<h2 class="card-title">Shoes!</h2>
+									<p>If a dog chews shoes whose shoes does he choose?</p>
 								</div>
 							</div>
-						</li>
-					</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<!-- Tem vs Team -->
 	<div class="flex flex-col h-screen">
 		<div class="hero flex-1">
 			<div class="hero-content flex-col lg:flex-row">
 				<img src="/images/rcb_csk.png" class="max-w-2xl rounded-lg" alt="RCB vs CSK logo" />
 				<div>
-					<h1 class="text-5xl font-bold">Choose Your Team</h1>
+					<h1 class="text-4xl font-bold">Play with your favorite teams</h1>
 					<p class="py-6">
 						Train the team and play against your friends or a bot and see live commentary!
 						<br />
