@@ -2,11 +2,26 @@
 	// import { authClient } from '$lib/utils/authClient';
 	// import { appSession, updateUserData } from '$lib/stores/sessionStore';
 	// import { goto } from '$app/navigation';
-	// import { serverURL } from '$lib/utils/bowledClient';
+	import { serverURL } from '$lib/utils/bowledClient';
 	// import { getNotificationsContext } from 'svelte-notifications';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 	import { goto } from '$app/navigation';
+
+	let metricsData = {
+		games_played: 0,
+		games_live: 0
+	};
+
+	async function loadMetrics() {
+		// load metrics data
+		let url = serverURL + '/live/metrics';
+		console.log(url);
+		const response = await fetch(url);
+		if (response.status == 200) {
+			metricsData = await response.json();
+		}
+	}
 
 	// // notification handler
 	// const { addNotification } = getNotificationsContext();
@@ -112,21 +127,23 @@
 					<button class="btn btn-primary" on:click={signIn}>Play now</button>
 				</div>
 			</div>
-			<div class="flex justify-around">
-				<div class="stats shadow-2xl">
-					<div class="stat place-items-center">
-						<div class="stat-title">Games played</div>
-						<div class="stat-value">31K</div>
-						<div class="stat-desc">From January 1st to February 1st</div>
-					</div>
+			{#await loadMetrics() then}
+				<div class="flex justify-around">
+					<div class="stats shadow-2xl">
+						<div class="stat place-items-center">
+							<div class="stat-title">Total games played</div>
+							<div class="stat-value text-secondary">{metricsData.games_played}</div>
+							<div class="stat-desc">Since Jan 27</div>
+						</div>
 
-					<div class="stat place-items-center">
-						<div class="stat-title">Users playing the game</div>
-						<div class="stat-value">4,200</div>
-						<div class="stat-desc">↗︎ 40 (2%)</div>
+						<div class="stat place-items-center">
+							<div class="stat-title">Users playing now</div>
+							<div class="stat-value text-secondary">{metricsData.games_live}</div>
+							<div class="stat-desc">Live</div>
+						</div>
 					</div>
 				</div>
-			</div>
+			{/await}
 		</div>
 	</div>
 
