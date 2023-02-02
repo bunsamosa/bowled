@@ -4,26 +4,22 @@
 	import { page } from '$app/stores';
 
 	let GA_MEASUREMENT_ID = import.meta.env.VITE_GA_ID;
-	console.log(GA_MEASUREMENT_ID, import.meta.env.VITE_PROD);
 
-	$: if (typeof gtag !== 'undefined' && import.meta.env.VITE_PROD == true) {
-		if ($page.query.toString().length > 0) {
+	$: if (typeof gtag !== 'undefined' && import.meta.env.VITE_ENV == 'PROD') {
+		console.log('LFG!');
+		if ($page.url.searchParams.toString().length > 0) {
 			gtag('config', GA_MEASUREMENT_ID, {
-				page_path: $page.path,
-				page_location: `${$page.host}${$page.path}?${$page.query}`
+				page_path: $page.url.pathname,
+				page_location: `${$page.url.hostname}${$page.url.pathname}?${$page.url.searchParams}`
 			});
 		} else {
 			gtag('config', GA_MEASUREMENT_ID, {
-				page_path: $page.path,
-				page_location: `${$page.host}${$page.path}`
+				page_path: $page.url.pathname,
+				page_location: `${$page.url.hostname}${$page.url.pathname}`
 			});
 		}
 	}
 </script>
-
-<svelte:head>
-	<script async src="https://www.googletagmanager.com/gtag/js?id={GA_MEASUREMENT_ID}"></script>
-</svelte:head>
 
 <Notifications>
 	<slot />
