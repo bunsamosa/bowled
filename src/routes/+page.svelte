@@ -76,52 +76,62 @@
 	}
 </script>
 
-<!-- Nav bar -->
-<div class="sticky z-50 top-0 navbar max-w-screen-xl m-auto flex-none">
-	<div class="flex-1">
-		<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
-	</div>
-	<div class="flex-none">
-		<ul class="menu menu-horizontal p-0">
-			<li>
-				<!-- Twitter icon -->
-				<a href="https://twitter.com/bowledGG" target="_blank"><Fa icon={faTwitter} /></a>
-			</li>
-			<li>
-				<a href="https://wiki.bunsamosa.org/" target="_blank" class="btn btn-ghost normal-case"
-					>Wiki</a
-				>
-			</li>
-		</ul>
-	</div>
-</div>
-
-<!-- Landing page -->
 <div class="max-w-screen-xl m-auto">
-	<!-- Copy and meme -->
-	<div class="flex flex-col h-screen">
-		<div class="hero flex-1">
-			<div class="hero-content flex-col lg:flex-row">
-				<img
-					src="/images/cricket_meme.gif"
-					class="max-w-lg rounded-lg shadow-lg"
-					alt="Disappointed bald guy cricket meme"
-				/>
-				<div>
-					<h1 class="text-5xl font-bold">Ever felt this watching cricket? Say no more!</h1>
-					<p class="py-6 text-2xl font-semibold">
-						Your team, Your strategies vs the world.
-						<br />Build your dream T20 team now.
-					</p>
-					<button class="btn btn-primary normal-case" on:click={signIn}>Play Now</button>
-					<a class="btn btn-outline btn-primary normal-case" href="#stages">Learn More</a>
+	<!-- Nav bar -->
+	<div class="fixed z-50 top-0 navbar max-w-screen-xl">
+		<div class="flex-1">
+			<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
+		</div>
+		<div class="flex-none">
+			<ul class="menu menu-horizontal p-0">
+				<li>
+					<!-- Twitter icon -->
+					<a href="https://twitter.com/bowledGG" target="_blank"><Fa icon={faTwitter} /></a>
+				</li>
+				<li>
+					<a href="https://wiki.bunsamosa.org/" target="_blank" class="btn btn-ghost normal-case"
+						>Wiki</a
+					>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Copy and hero image -->
+	<div class="hero min-h-screen">
+		<div class="flex-col">
+			<div class="hero-content flex-row">
+				<div class="max-w-md rounded-lg hidden lg:block">
+					<img src="images/bat_and_ball.gif" alt="Bat and ball" />
+				</div>
+				<div class="max-w-2xl">
+					<h1 class="mb-2 text-5xl font-bold">Beat your friends in Cricket</h1>
+					<h1 class="mb-10 text-2xl font bold">
+						Train players, set strategies and lead your team to glory!
+					</h1>
+					<button class="btn btn-primary" on:click={signIn}>Play now</button>
+				</div>
+			</div>
+			<div class="flex justify-around">
+				<div class="stats shadow-2xl">
+					<div class="stat place-items-center">
+						<div class="stat-title">Games played</div>
+						<div class="stat-value">31K</div>
+						<div class="stat-desc">From January 1st to February 1st</div>
+					</div>
+
+					<div class="stat place-items-center">
+						<div class="stat-title">Users playing the game</div>
+						<div class="stat-value">4,200</div>
+						<div class="stat-desc">↗︎ 40 (2%)</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- How to play -->
-	<div class="flex flex-col h-screen" id="stages">
+	<!-- <div class="flex flex-col min-h-screen" id="stages">
 		<div class="hero flex-1">
 			<div class="hero-content flex-col">
 				<h1 class="text-5xl font-bold">How to play?</h1>
@@ -160,25 +170,6 @@
 					</div>
 				</div>
 				<button class="btn btn-primary" on:click={signIn}>Play Now</button>
-			</div>
-		</div>
-	</div>
-
-	<!-- Team vs Team -->
-	<!-- <div class="flex flex-col h-screen">
-		<div class="hero flex-1">
-			<div class="hero-content flex-col lg:flex-row">
-				<img src="/images/rcb_csk.png" class="max-w-2xl rounded-lg" alt="RCB vs CSK logo" />
-				<div>
-					<h1 class="text-4xl font-bold">Play with your favorite teams</h1>
-					<p class="py-6">
-						Train the team and play against your friends or a bot and see live commentary!
-						<br />
-						Choose your team, Train your players and Compete with your friends to become the Best Manager
-						in the world!
-					</p>
-					<button class="btn btn-primary" on:click={signIn}>Get Started</button>
-				</div>
 			</div>
 		</div>
 	</div> -->
