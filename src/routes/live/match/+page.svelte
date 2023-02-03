@@ -8,6 +8,7 @@
 	let gameData = savedGame;
 	let batting: any = [];
 	let bowling: any = [];
+	let payload;
 	myTeam = $teamID;
 
 	async function loadGame() {
@@ -15,16 +16,34 @@
 			batting = JSON.parse($battingLineUp);
 			bowling = JSON.parse($bowlingLineUp);
 
-			if (batting.length < 11 || myTeam.length < 3 || bowling.length < 5) {
+			if (batting.length < 11 || myTeam.length < 2 || bowling.length < 5) {
 				goto('/live/teams');
 			}
+
+			let battingPayload = [];
+			batting.forEach((player) => {
+				battingPayload.push(player.player_id);
+			});
+
+			let bowlingPayload = [];
+			bowling.forEach((player) => {
+				bowlingPayload.push(player.player_id);
+			});
+			payload = {
+				team_id: myTeam,
+				batting_lineup: battingPayload,
+				bowling_lineup: bowlingPayload
+			};
 		} catch (e) {
 			goto('/live/teams');
 		}
 
 		// load player data
-		let url = serverURL + '/live/game?myteam=' + myTeam;
-		const response = await fetch(url);
+		let url = serverURL + '/live/game';
+		const response = await fetch(url, {
+			method: 'POST',
+			body: JSON.stringify(payload)
+		});
 
 		if (response.status == 200) {
 			let data = await response.json();
@@ -63,7 +82,7 @@
 			<div class="flex w-full flex-none">
 				{#if current_ball_data.innings == 'First'}
 					<div class="stat text-left bg-primary text-primary-content rounded-box">
-						<div class="stat-title">Batting first</div>
+						<div class="stat-title">{gameData.toss_result}</div>
 						<div class="stat-value text-black">{gameData.team_name}</div>
 						<div class="stat-value ">
 							<span class="text-3xl"

@@ -11,7 +11,7 @@
 		try {
 			playersData = JSON.parse($allPlayers);
 
-			if (playersData.length < 11 || myTeam.length < 3) {
+			if (playersData.length < 11 || myTeam.length < 2) {
 				goto('/live/teams');
 			}
 		} catch (e) {

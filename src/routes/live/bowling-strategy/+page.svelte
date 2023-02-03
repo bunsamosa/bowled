@@ -12,7 +12,7 @@
 		try {
 			allPlayers = JSON.parse($battingLineUp);
 
-			if (allPlayers.length < 11 || myTeam.length < 3) {
+			if (allPlayers.length < 11 || myTeam.length < 2) {
 				goto('/live/teams');
 			}
 
