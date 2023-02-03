@@ -42,7 +42,10 @@
 		let url = serverURL + '/live/game';
 		const response = await fetch(url, {
 			method: 'POST',
-			body: JSON.stringify(payload)
+			body: JSON.stringify(payload),
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		});
 
 		if (response.status == 200) {
@@ -52,6 +55,12 @@
 		streamData();
 	}
 
+	function isDisabled(a, b) {
+		console.log(a, b, a >= b);
+		return a >= b;
+	}
+
+	let current_over_data = [];
 	// stream match data from server
 	$: full_match_commentary = gameData.match_commentary;
 	// $: current_ball = Math.floor(full_match_commentary.length / 2);
@@ -61,13 +70,25 @@
 	$: player2 = current_ball_data.bowler;
 
 	if (current_ball_data?.innings == 'Second') {
-		player1 = current_ball_data.bowler;
-		player2 = current_ball_data.striker;
+		player1 = current_ball_data.striker;
+		player2 = current_ball_data.bowler;
 	}
 	async function streamData() {
+		let current_over = 0;
+		let previous_over = 0;
+
+		current_over_data = [];
 		while (current_ball < full_match_commentary.length) {
-			current_ball += 1;
+			previous_over = current_ball_data.current_over;
+			current_ball_data = full_match_commentary[current_ball];
+			current_over = current_ball_data.current_over;
+			current_over_data = [current_ball_data, ...current_over_data];
+
+			if (current_over != previous_over) {
+				current_over_data = [current_ball_data];
+			}
 			await sleep(3000);
+			current_ball += 1;
 		}
 	}
 
@@ -79,7 +100,7 @@
 <div class="h-screen max-w-screen-xl m-auto flex flex-col">
 	<div>
 		{#await loadGame() then}
-			<div class="flex w-full flex-none">
+			<div class="flex w-full flex-col lg:flex-row">
 				{#if current_ball_data.innings == 'First'}
 					<div class="stat text-left bg-primary text-primary-content rounded-box">
 						<div class="stat-title">{gameData.toss_result}</div>
@@ -135,19 +156,20 @@
 				{/if}
 			</div>
 			<div class="p-5 divider-horizontal" />
-			<div class="alert alert-success shadow-lg">
-				<div>
-					{current_ball_data.current_over}.{current_ball_data.current_ball}
-					{current_ball_data.bowler?.player_name} to {current_ball_data.striker?.player_name}
-					<span>{current_ball_data.outcome_label}</span>
+			{#each current_over_data as ball_data}
+				<div class="alert alert-success shadow-2xl font-bold mb-3">
+					<div>
+						{ball_data.current_over}.{ball_data.current_ball}
+						{ball_data.bowler?.player_name} to {ball_data.striker?.player_name}
+						<span>{ball_data.outcome_label}</span>
+					</div>
 				</div>
-			</div>
+			{/each}
 			<div class="p-5 divider-horizontal" />
 			<div class="flex flex-col w-full lg:flex-row">
-				<div class="card w-96 bg-base-100 shadow-xl flex-1">
-					<!-- <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure> -->
+				<div class="card bg-base-100 shadow-xl flex-1">
 					<div class="card-body">
-						<h2 class="card-title">
+						<h2 class="card-title text-xl font-bold">
 							{player1.player_name}
 						</h2>
 						<div class="card-actions justify-start">
@@ -173,70 +195,30 @@
 							</p>
 						</div>
 						<div class="divider-horizontal" />
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Fielding</span>
-							<span class="text-right flex-1">{player1.fielding}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player1.fielding_index}
-							max="20"
-						/>
-
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Wicket Keeping </span>
-							<span class="text-right flex-1">{player1.wicket_keeping}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player1.wicket_keeping_index}
-							max="20"
-						/>
-
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Batting vs Seam </span>
-							<span class="text-right flex-1">{player1.batting_seam}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player1.batting_seam_index}
-							max="20"
-						/>
-
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Batting vs Spin </span>
-							<span class="text-right flex-1">{player1.batting_spin}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player1.batting_spin_index}
-							max="20"
-						/>
-
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Bowling Main </span>
-							<span class="text-right flex-1">{player1.bowling_main}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player1.bowling_main_index}
-							max="20"
-						/>
-
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Bowling Variation </span>
-							<span class="text-right flex-1">{player1.bowling_variation}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player1.bowling_variation_index}
-							max="20"
-						/>
+						<div>
+							<div class="rating rating-lg">
+								{#each Array(10) as _, i}
+									{#if i + 1 == player1.batting_rating}
+										<input
+											type="radio"
+											name="rating-batsman"
+											class="mask mask-star-2 bg-orange-400"
+											checked
+										/>
+									{:else}
+										<input
+											type="radio"
+											name="rating-batsman"
+											class="mask mask-star-2 bg-orange-400"
+										/>
+									{/if}
+								{/each}
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="divider lg:divider-horizontal">VS</div>
-				<div class=" card w-96 bg-base-100 shadow-xl flex-1">
-					<!-- <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure> -->
+				<div class=" card bg-base-100 shadow-xl flex-1">
 					<div class="card-body">
 						<h2 class="card-title">
 							{player2.player_name}
@@ -264,65 +246,20 @@
 							</p>
 						</div>
 						<div class="divider-horizontal" />
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Fielding</span>
-							<span class="text-right flex-1">{player2.fielding}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player2.fielding_index}
-							max="20"
-						/>
-
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Wicket Keeping </span>
-							<span class="text-right flex-1">{player2.wicket_keeping}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player2.wicket_keeping_index}
-							max="20"
-						/>
-
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Batting vs Seam </span>
-							<span class="text-right flex-1">{player2.batting_seam}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player2.batting_seam_index}
-							max="20"
-						/>
-
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Batting vs Spin </span>
-							<span class="text-right flex-1">{player2.batting_spin}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player2.batting_spin_index}
-							max="20"
-						/>
-
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Bowling Main </span>
-							<span class="text-right flex-1">{player2.bowling_main}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player2.bowling_main_index}
-							max="20"
-						/>
-
-						<p class="flex flex-row">
-							<span class="text-left flex-none font-bold">Bowling Variation </span>
-							<span class="text-right flex-1">{player2.bowling_variation}</span>
-						</p>
-						<progress
-							class="progress progress-warning w-90"
-							value={player2.bowling_variation_index}
-							max="20"
-						/>
+						<div class="rating rating-lg">
+							{#each Array(10) as _, i}
+								{#if i + 1 == player2.bowling_rating}
+									<input
+										type="radio"
+										name="rating-bowler"
+										class="mask mask-star-2 bg-orange-400"
+										checked
+									/>
+								{:else}
+									<input type="radio" name="rating-bowler" class="mask mask-star-2 bg-orange-400" />
+								{/if}
+							{/each}
+						</div>
 					</div>
 				</div>
 			</div>

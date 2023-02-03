@@ -121,6 +121,7 @@
 				</div>
 				<div class="max-w-2xl">
 					<h1 class="mb-2 text-5xl font-bold">Beat your friends in Cricket</h1>
+					<h1 class="text-2xl font bold">Bowled is a cricket team management game.</h1>
 					<h1 class="mb-10 text-2xl font bold">
 						Train players, set strategies and lead your team to glory!
 					</h1>
