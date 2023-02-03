@@ -20,7 +20,7 @@
 	async function setLineUp(myTeam: string, myPlayers: any) {
 		teamID.set(myTeam);
 		allPlayers.set(JSON.stringify(myPlayers));
-		goto('/live/batting-strategy?self=' + myTeam);
+		goto('/live/batting-strategy');
 	}
 </script>
 
