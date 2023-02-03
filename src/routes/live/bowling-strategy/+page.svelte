@@ -1,39 +1,33 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { flip } from 'svelte/animate';
-	import { battingLineUp, allPlayers, teamID } from '$lib/stores/gameStore';
+	import { teamID, battingLineUp, bowlingLineUp } from '$lib/stores/gameStore';
 
 	let hovering = false;
 	let playersData: any = [];
+	let allPlayers: any = [];
 	let myTeam = $teamID;
 
 	async function loadPlayers() {
 		try {
-			playersData = JSON.parse($allPlayers);
+			allPlayers = JSON.parse($battingLineUp);
 
-			if (playersData.length < 11 || myTeam.length < 3) {
+			if (allPlayers.length < 11 || myTeam.length < 3) {
 				goto('/live/teams');
 			}
+
+			allPlayers.forEach((player) => {
+				if (player.player_type == 'bowler' || player.player_type == 'all-rounder')
+					playersData.push(player);
+			});
 		} catch (e) {
 			goto('/live/teams');
 		}
-
-		// console.log('loading players of team: ' + myTeam);
-
-		// // load teams data
-		// let url = serverURL + '/live/players?myteam=' + myTeam;
-		// console.log(url);
-		// const response = await fetch(url);
-		// if (response.status == 200) {
-		// 	let players = await response.json();
-		// 	playersData = [...players];
-		// 	playersData.set(JSON.stringify(playersData));
-		// }
 	}
 
-	async function setLineUp() {
-		battingLineUp.set(JSON.stringify(playersData));
-		goto('/live/bowling-strategy');
+	async function startGame() {
+		bowlingLineUp.set(JSON.stringify(playersData));
+		goto('/live/match');
 	}
 
 	const drop = (event, target) => {
@@ -63,10 +57,10 @@
 <div class="hero flex-1">
 	<div class="hero-content flex-col min-w-full">
 		<div class="my-5 flex-none text-center">
-			<h1 class="text-5xl font-bold mb-5">Batting Line Up</h1>
+			<h1 class="text-5xl font-bold mb-5">Bowling Line Up</h1>
 			<p>Click and drag to re-order</p>
 		</div>
-		<div><button class="btn btn-primary" on:click={setLineUp}>Continue</button></div>
+		<div><button class="btn btn-primary" on:click={startGame}>Continue</button></div>
 		<div class="flex-1">
 			{#await loadPlayers() then}
 				<div class="list">
@@ -84,28 +78,29 @@
 							<div class="text-xl font-bold mb-5">{index + 1}. {player.player_name}</div>
 							<div>
 								<p class="flex flex-row">
-									<span class="text-left flex-none font-bold">Batting vs Seam </span>
+									<span class="text-left flex-none font-bold">Bowling Main </span>
 									<span
 										class="text-right flex-1 font-bold"
-										style="color: {player.batting_seam_color};">{player.batting_seam}</span
+										style="color: {player.bowling_main_color};">{player.bowling_main}</span
 									>
 								</p>
 								<progress
 									class="progress progress-warning w-90"
-									value={player.batting_seam_index}
+									value={player.bowling_main_index}
 									max="20"
 								/>
 
 								<p class="flex flex-row">
-									<span class="text-left flex-none font-bold">Batting vs Spin </span>
+									<span class="text-left flex-none font-bold">Bowling Variation </span>
 									<span
 										class="text-right flex-1 font-bold"
-										style="color: {player.batting_spin_color};">{player.batting_spin}</span
+										style="color: {player.bowling_variation_color};"
+										>{player.bowling_variation}</span
 									>
 								</p>
 								<progress
 									class="progress progress-warning w-90"
-									value={player.batting_spin_index}
+									value={player.bowling_variation_index}
 									max="20"
 								/>
 							</div>

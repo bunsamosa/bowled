@@ -1,13 +1,27 @@
 <script lang="ts">
 	import { serverURL } from '$lib/utils/bowledClient';
-	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	import savedGame from './gameData.json';
+	import { teamID, battingLineUp, bowlingLineUp } from '$lib/stores/gameStore';
 
 	let myTeam: string;
-	myTeam = $page.url.searchParams.get('self');
 	let gameData = savedGame;
+	let batting: any = [];
+	let bowling: any = [];
+	myTeam = $teamID;
 
 	async function loadGame() {
+		try {
+			batting = JSON.parse($battingLineUp);
+			bowling = JSON.parse($bowlingLineUp);
+
+			if (batting.length < 11 || myTeam.length < 3 || bowling.length < 5) {
+				goto('/live/teams');
+			}
+		} catch (e) {
+			goto('/live/teams');
+		}
+
 		// load player data
 		let url = serverURL + '/live/game?myteam=' + myTeam;
 		const response = await fetch(url);
