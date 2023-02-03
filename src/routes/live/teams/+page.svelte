@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { serverURL } from '$lib/utils/bowledClient';
 	import { goto } from '$app/navigation';
+	import { teamID, allPlayers } from '$lib/stores/gameStore';
 
 	let teamData: any = [];
 
@@ -16,8 +17,10 @@
 		}
 	}
 
-	async function chooseOpponent(myTeam: string) {
-		goto('/live/opponent?self=' + myTeam);
+	async function setLineUp(myTeam: string, myPlayers: any) {
+		teamID.set(myTeam);
+		allPlayers.set(JSON.stringify(myPlayers));
+		goto('/live/batting-strategy?self=' + myTeam);
 	}
 </script>
 
@@ -37,8 +40,9 @@
 							<div class="card-body justify-around">
 								<h2 class="card-title justify-center text-3xl">{team.team_name}</h2>
 								<div class="card-actions justify-end">
-									<button class="btn btn-primary" on:click={() => chooseOpponent(team.team_id)}
-										>Pick</button
+									<button
+										class="btn btn-primary"
+										on:click={() => setLineUp(team.team_id, team.players)}>Pick</button
 									>
 								</div>
 							</div>
