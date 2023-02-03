@@ -17,10 +17,10 @@
 		}
 	}
 
-	async function setLineUp(myTeam: string, myPlayers: any) {
+	async function meetPlayers(myTeam: string, myPlayers: any) {
 		teamID.set(myTeam);
 		allPlayers.set(JSON.stringify(myPlayers));
-		goto('/live/batting-strategy');
+		goto('/live/players');
 	}
 </script>
 
@@ -42,7 +42,7 @@
 								<div class="card-actions justify-end">
 									<button
 										class="btn btn-primary"
-										on:click={() => setLineUp(team.team_id, team.players)}>Pick</button
+										on:click={() => meetPlayers(team.team_id, team.players)}>Pick</button
 									>
 								</div>
 							</div>

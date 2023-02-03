@@ -58,7 +58,8 @@
 	<div class="hero-content flex-col min-w-full">
 		<div class="my-5 flex-none text-center">
 			<h1 class="text-5xl font-bold mb-5">Bowling Line Up</h1>
-			<p>Click and drag to re-order</p>
+			<p>This is the bowling order for the game.</p>
+			<p>Click and drag a card to re-order.</p>
 		</div>
 		<div><button class="btn btn-primary" on:click={startGame}>Continue</button></div>
 		<div class="flex-1">

@@ -51,6 +51,7 @@
 		if (response.status == 200) {
 			let data = await response.json();
 			gameData = data;
+			current_ball_data = gameData.match_commentary[current_ball];
 		}
 		streamData();
 	}
