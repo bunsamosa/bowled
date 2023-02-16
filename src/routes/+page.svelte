@@ -91,65 +91,74 @@
 	}
 </script>
 
-<div class="max-w-screen-xl m-auto">
-	<!-- Nav bar -->
-	<div class="fixed z-50 top-0 navbar max-w-screen-xl">
-		<div class="flex-1">
-			<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
-		</div>
-		<div class="flex-none">
-			<ul class="menu menu-horizontal p-0">
-				<li>
-					<!-- Twitter icon -->
-					<a href="https://twitter.com/bowledGG" target="_blank"><Fa icon={faTwitter} /></a>
-				</li>
-				<li>
-					<a href="https://wiki.bunsamosa.org/" target="_blank" class="btn btn-ghost normal-case"
-						>Wiki</a
-					>
-				</li>
-			</ul>
-		</div>
-	</div>
-
-	<!-- Copy and hero image -->
-	<div class="hero min-h-screen">
-		<div class="flex-col">
-			<div class="hero-content flex-row">
-				<div class="max-w-md rounded-lg hidden lg:block">
-					<img src="images/bat_and_ball.gif" alt="Bat and ball" />
+<!-- Background image -->
+<div
+	style="background-image: url(/images/stadium_bg.png); "
+	class="bg-fixed	bg-center bg-no-repeat bg-cover "
+>
+	<!-- Gradient effect -->
+	<div class="bg-gradient-to-b from-black">
+		<div class="max-w-screen-xl m-auto">
+			<!-- Nav bar -->
+			<div class="fixed z-50 top-2 navbar max-w-screen-xl backdrop-blur-xl">
+				<div class="flex-1">
+					<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
 				</div>
-				<div class="max-w-2xl">
-					<h1 class="mb-2 text-5xl font-bold">Beat your friends in Cricket</h1>
-					<h1 class="text-2xl font bold">Bowled is a cricket team management game.</h1>
-					<h1 class="mb-10 text-2xl font bold">
-						Train players, set strategies and lead your team to glory!
-					</h1>
-					<button class="btn btn-primary" on:click={signIn}>Play now</button>
+				<div class="flex-none">
+					<ul class="menu menu-horizontal p-0 ">
+						<li>
+							<!-- Twitter icon -->
+							<a href="https://twitter.com/bowledGG" target="_blank"><Fa icon={faTwitter} /></a>
+						</li>
+						<li>
+							<a
+								href="https://wiki.bunsamosa.org/"
+								target="_blank"
+								class="btn btn-ghost normal-case">Wiki</a
+							>
+						</li>
+					</ul>
 				</div>
 			</div>
-			{#await loadMetrics() then}
-				<div class="flex justify-around">
-					<div class="stats shadow-2xl">
-						<div class="stat place-items-center">
-							<div class="stat-title">Total games played</div>
-							<div class="stat-value text-secondary">{metricsData.games_played}</div>
-							<div class="stat-desc">Since Jan 27</div>
-						</div>
 
-						<div class="stat place-items-center">
-							<div class="stat-title">Users playing now</div>
-							<div class="stat-value text-secondary">{metricsData.games_live}</div>
-							<div class="stat-desc">Live</div>
-						</div>
+			<!-- Copy and hero image -->
+			<div class="hero min-h-screen">
+				<div class="hero-content flex-col">
+					<div class="max-w-full text-center mb-8">
+						<h1 class="p-5 text-6xl font-bold copy-gradient">Beat your friends in Cricket</h1>
+						<h1 class="mb-8 text-2xl font-semibold">
+							Train players, set strategies and lead your team to glory!
+						</h1>
+						<input
+							type="image"
+							src="images/start_button.gif"
+							class="max-w-xs m-auto"
+							alt="Start Button"
+							on:click={signIn}
+						/>
 					</div>
-				</div>
-			{/await}
-		</div>
-	</div>
+					{#await loadMetrics() then}
+						<div class="flex justify-around">
+							<div class="stats shadow-2xl bg-transparent backdrop-blur-sm">
+								<div class="stat place-items-center">
+									<div class="stat-title text-primary">Total games played</div>
+									<div class="stat-value">{metricsData.games_played}</div>
+									<div class="stat-desc text-primary">Since Jan 27</div>
+								</div>
 
-	<!-- How to play -->
-	<!-- <div class="flex flex-col min-h-screen" id="stages">
+								<div class="stat place-items-center">
+									<div class="stat-title text-primary">Users playing now</div>
+									<div class="stat-value ">{metricsData.games_live}</div>
+									<div class="stat-desc text-primary">Live</div>
+								</div>
+							</div>
+						</div>
+					{/await}
+				</div>
+			</div>
+
+			<!-- How to play -->
+			<!-- <div class="flex flex-col min-h-screen" id="stages">
 		<div class="hero flex-1">
 			<div class="hero-content flex-col">
 				<h1 class="text-5xl font-bold">How to play?</h1>
@@ -191,4 +200,12 @@
 			</div>
 		</div>
 	</div> -->
+		</div>
+	</div>
 </div>
+
+<style>
+	.copy-gradient {
+		@apply bg-gradient-to-b from-yellow-50 via-yellow-300 to-red-400 text-transparent bg-clip-text;
+	}
+</style>
