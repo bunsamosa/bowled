@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { flip } from 'svelte/animate';
 	import { teamID, battingLineUp, bowlingLineUp } from '$lib/stores/gameStore';
+	import BallLoader from '$lib/components/core/BallLoader.svelte';
 
 	let hovering = false;
 	let playersData: any = [];
@@ -56,18 +57,20 @@
 
 <div class="hero flex-1">
 	<div class="hero-content flex-col min-w-full">
-		<div class="my-5 flex-none text-center">
-			<h1 class="text-5xl font-bold mb-5">Bowling Line Up</h1>
-			<p>This is the bowling order for the game.</p>
-			<p>Click and drag a card to re-order.</p>
-		</div>
-		<div><button class="btn btn-primary" on:click={startGame}>Continue</button></div>
-		<div class="flex-1">
-			{#await loadPlayers() then}
-				<div class="list">
+		{#await loadPlayers()}
+			<BallLoader />
+		{:then}
+			<div class="my-5 flex-none text-center">
+				<h1 class="text-5xl font-bold mb-5">Bowling Line Up</h1>
+				<p>This is the bowling order for the game.</p>
+				<p>Click and drag a card to re-order.</p>
+			</div>
+			<div><button class="btn btn-primary" on:click={startGame}>Continue</button></div>
+			<div class="flex-1">
+				<div class="bg-base-100">
 					{#each playersData as player, index (player.player_name)}
 						<div
-							class="list-item hover:bg-blue-600 hover:cursor-move w-96"
+							class="bg-base-100 w-96 outline rounded-lg p-5 my-5 hover:cursor-move hover:bg-slate-500"
 							animate:flip
 							draggable={true}
 							on:dragstart={(event) => dragstart(event, index)}
@@ -121,29 +124,7 @@
 						</div>
 					{/each}
 				</div>
-			{/await}
-		</div>
+			</div>
+		{/await}
 	</div>
 </div>
-
-<style>
-	.list {
-		background-color: white;
-		border-radius: 4px;
-		box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-	}
-
-	.list-item {
-		display: block;
-		padding: 0.5em 1em;
-	}
-
-	.list-item:not(:last-child) {
-		border-bottom: 3px solid #dbdbdb;
-	}
-
-	.list-item.is-active {
-		background-color: #3273dc;
-		color: #fff;
-	}
-</style>
