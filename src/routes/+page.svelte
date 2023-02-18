@@ -4,9 +4,8 @@
 	// import { goto } from '$app/navigation';
 	import { serverURL } from '$lib/utils/bowledClient';
 	// import { getNotificationsContext } from 'svelte-notifications';
-	import Fa from 'svelte-fa/src/fa.svelte';
-	import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 	import { goto } from '$app/navigation';
+	import HomeNavbar from '$lib/components/core/HomeNavbar.svelte';
 
 	let metricsData = {
 		games_played: 0,
@@ -99,27 +98,7 @@
 	<!-- Gradient effect -->
 	<div class="bg-gradient-to-b from-black">
 		<div class="max-w-screen-xl m-auto">
-			<!-- Nav bar -->
-			<div class="fixed z-50 top-2 navbar max-w-screen-xl backdrop-blur-xl">
-				<div class="flex-1">
-					<a class="btn btn-ghost normal-case text-2xl" href="/">Bowled</a>
-				</div>
-				<div class="flex-none">
-					<ul class="menu menu-horizontal p-0 ">
-						<li>
-							<!-- Twitter icon -->
-							<a href="https://twitter.com/bowledGG" target="_blank"><Fa icon={faTwitter} /></a>
-						</li>
-						<li>
-							<a
-								href="https://wiki.bunsamosa.org/"
-								target="_blank"
-								class="btn btn-ghost normal-case">Wiki</a
-							>
-						</li>
-					</ul>
-				</div>
-			</div>
+			<HomeNavbar />
 
 			<!-- Copy and hero image -->
 			<div class="hero min-h-screen">
@@ -131,7 +110,7 @@
 						</h1>
 						<input
 							type="image"
-							src="images/start_button.gif"
+							src="/images/start_button.gif"
 							class="max-w-xs m-auto"
 							alt="Start Button"
 							on:click={signIn}
