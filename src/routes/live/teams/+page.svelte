@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { serverURL } from '$lib/utils/bowledClient';
 	import { goto } from '$app/navigation';
-	import { teamID, allPlayers } from '$lib/stores/gameStore';
-	import BatLoader from '$lib/components/core/BatLoader.svelte';
+	import { teamID } from '$lib/stores/gameStore';
+	import BallLoader from '$lib/components/core/BallLoader.svelte';
 
 	let teamData: any = [];
 
 	async function loadTeams() {
 		// load teams data
-		// let access_token = $appSession?.access_token;
 		let url = serverURL + '/live/teams';
 		console.log(url);
 		const response = await fetch(url);
@@ -20,19 +19,18 @@
 
 	async function meetPlayers(myTeam: string, myPlayers: any) {
 		teamID.set(myTeam);
-		allPlayers.set(JSON.stringify(myPlayers));
 		goto('/live/players');
 	}
 </script>
 
 <div class="hero min-h-screen">
 	<div class="hero-content flex-col min-w-full">
-		<div class="my-5"><h1 class="text-5xl font-bold">Choose your favorite team</h1></div>
-		<div class="min-w-full">
-			<div class="flex flex-row flex-wrap">
-				{#await loadTeams()}
-					<BatLoader />
-				{:then}
+		{#await loadTeams()}
+			<BallLoader />
+		{:then}
+			<div class="my-5"><h1 class="text-5xl font-bold">Choose your favorite team</h1></div>
+			<div class="min-w-full">
+				<div class="flex flex-row flex-wrap">
 					{#each teamData as team}
 						<div
 							class="card w-72 h-72 mx-auto mb-10 shadow-xl image-full hover:scale-110 hover:bg-blue-600 outline"
@@ -51,8 +49,8 @@
 							</div>
 						</div>
 					{/each}
-				{/await}
+				</div>
 			</div>
-		</div>
+		{/await}
 	</div>
 </div>
