@@ -2,32 +2,21 @@
 	import { serverURL } from '$lib/utils/bowledClient';
 	import { goto } from '$app/navigation';
 	import { teamID, allPlayers } from '$lib/stores/gameStore';
+	import BallLoader from '$lib/components/core/BallLoader.svelte';
 
 	let playersData: any = [];
 	let myTeam = $teamID;
 
 	async function loadPlayers() {
-		try {
-			playersData = JSON.parse($allPlayers);
-
-			if (playersData.length < 11 || myTeam.length < 2) {
-				goto('/live/teams');
-			}
-		} catch (e) {
-			goto('/live/teams');
+		// load teams data
+		let url = serverURL + '/live/players?team=' + myTeam;
+		console.log(url);
+		const response = await fetch(url);
+		if (response.status == 200) {
+			let players = await response.json();
+			playersData = [...players];
+			allPlayers.set(JSON.stringify(playersData));
 		}
-
-		// console.log('loading players of team: ' + myTeam);
-
-		// // load teams data
-		// let url = serverURL + '/live/players?myteam=' + myTeam;
-		// console.log(url);
-		// const response = await fetch(url);
-		// if (response.status == 200) {
-		// 	let players = await response.json();
-		// 	playersData = [...players];
-		// 	playersData.set(JSON.stringify(playersData));
-		// }
 	}
 
 	async function setLineUp() {
@@ -35,15 +24,17 @@
 	}
 </script>
 
-<div class="hero flex-1">
+<div class="hero min-h-screen">
 	<div class="hero-content flex-col min-w-full">
-		<div class="my-5"><h1 class="text-5xl font-bold">Meet your players</h1></div>
-		<div><button class="btn btn-primary" on:click={setLineUp}>Play Now</button></div>
-		<div class="min-w-full">
-			<div class="flex flex-row flex-wrap">
-				{#await loadPlayers() then}
+		{#await loadPlayers()}
+			<BallLoader />
+		{:then}
+			<div class="my-5"><h1 class="text-5xl font-bold">Meet your players</h1></div>
+			<div><button class="btn btn-primary" on:click={setLineUp}>Play Now</button></div>
+			<div class="min-w-full">
+				<div class="flex flex-row flex-wrap">
 					{#each playersData as player}
-						<div class=" card w-96 m-auto mb-5 bg-base-100 shadow-2xl">
+						<div class=" card w-96 m-auto mb-5 bg-base-100 shadow-2xl outline">
 							<div class="card-body">
 								<h2 class="card-title text-xl font-bold">
 									{player.player_name}
@@ -63,11 +54,11 @@
 								<div class="flex flex-row">
 									<p class="text-left">
 										<span>Form</span>
-										<span class="badge">{player.form}</span>
+										<span class="badge badge-accent badge-outline">{player.form}</span>
 									</p>
 									<p class="text-right">
 										<span>Fitness</span>
-										<span class="badge">{player.fitness}</span>
+										<span class="badge badge-accent badge-outline">{player.fitness}</span>
 									</p>
 								</div>
 								<div class="divider-horizontal" />
@@ -151,8 +142,8 @@
 							</div>
 						</div>
 					{/each}
-				{/await}
+				</div>
 			</div>
-		</div>
+		{/await}
 	</div>
 </div>
