@@ -92,6 +92,7 @@
 
 <!-- Background image -->
 <div
+	data-theme="halloween"
 	style="background-image: url(/images/stadium_bg.png); "
 	class="bg-fixed	bg-center bg-no-repeat bg-cover "
 >
@@ -120,15 +121,15 @@
 						<div class="flex justify-around">
 							<div class="stats shadow-2xl bg-transparent backdrop-blur-sm">
 								<div class="stat place-items-center">
-									<div class="stat-title text-primary">Total games played</div>
-									<div class="stat-value">{metricsData.games_played}</div>
-									<div class="stat-desc text-primary">Since Jan 27</div>
+									<div class="stat-title">Total games played</div>
+									<div class="stat-value copy-gradient">{metricsData.games_played}</div>
+									<div class="stat-desc">Since Jan 27</div>
 								</div>
 
 								<div class="stat place-items-center">
-									<div class="stat-title text-primary">Users playing now</div>
-									<div class="stat-value ">{metricsData.games_live}</div>
-									<div class="stat-desc text-primary">Live</div>
+									<div class="stat-title">Users playing now</div>
+									<div class="stat-value copy-gradient">{metricsData.games_live}</div>
+									<div class="stat-desc">Live</div>
 								</div>
 							</div>
 						</div>
