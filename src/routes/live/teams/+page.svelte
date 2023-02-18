@@ -2,6 +2,7 @@
 	import { serverURL } from '$lib/utils/bowledClient';
 	import { goto } from '$app/navigation';
 	import { teamID, allPlayers } from '$lib/stores/gameStore';
+	import BatLoader from '$lib/components/core/BatLoader.svelte';
 
 	let teamData: any = [];
 
@@ -24,15 +25,17 @@
 	}
 </script>
 
-<div class="hero flex-1">
+<div class="hero min-h-screen">
 	<div class="hero-content flex-col min-w-full">
 		<div class="my-5"><h1 class="text-5xl font-bold">Choose your favorite team</h1></div>
 		<div class="min-w-full">
 			<div class="flex flex-row flex-wrap">
-				{#await loadTeams() then}
+				{#await loadTeams()}
+					<BatLoader />
+				{:then}
 					{#each teamData as team}
 						<div
-							class="card w-72 h-72 mx-auto mb-10 shadow-xl image-full hover:scale-110 hover:bg-blue-600"
+							class="card w-72 h-72 mx-auto mb-10 shadow-xl image-full hover:scale-110 hover:bg-blue-600 outline"
 						>
 							<figure>
 								<img src={team.team_logo} alt={team.team_name} />
