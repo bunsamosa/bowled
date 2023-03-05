@@ -26,7 +26,7 @@
 			{#if notHome}
 				<li>
 					<button
-						data-toggle-theme="halloween,bumblebee"
+						data-toggle-theme="bumblebee,halloween"
 						data-act-class="ACTIVECLASS"
 						type="button"
 					>
