@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { teamID, battingLineUp, bowlingLineUp } from '$lib/stores/gameStore';
 	import BallLoader from '$lib/components/core/BallLoader.svelte';
+	// import sampleGame from './sample_game.json';
 
 	let myTeam: string = $teamID;
 	let gameData: any = {};
@@ -15,6 +16,8 @@
 	let current_ball = 0;
 	let current_ball_data = {};
 	let current_over = 0;
+	let current_over_number = 0;
+	let current_over_outcomes = [];
 	let previous_over = 0;
 	let allPlayers = {};
 	let batsman = {};
@@ -64,11 +67,17 @@
 		if (response.status == 200) {
 			let data = await response.json();
 			gameData = data;
-			current_ball_data = gameData.match_commentary[current_ball];
-			full_match_commentary = gameData.match_commentary;
+			// if (true) {
+			// 	gameData = sampleGame;
+
+			full_match_commentary = [
+				...gameData.first_innings_score_card.innings_outcomes,
+				...gameData.second_innings_score_card.innings_outcomes
+			];
+			current_ball_data = full_match_commentary[current_ball];
 			allPlayers = {
-				...gameData.first_innings.batting_team,
-				...gameData.second_innings.batting_team
+				...gameData.enemy_team,
+				...gameData.user_team
 			};
 			streamData();
 		} else {
@@ -78,30 +87,28 @@
 	});
 
 	function streamData() {
-		console.log('Streaming: Ball ' + current_ball + ' of ' + full_match_commentary.length);
+		console.log('Streaming: Ball ' + (current_ball + 1) + ' of ' + full_match_commentary.length);
 
 		if (current_ball < full_match_commentary.length) {
 			current_ball_data = full_match_commentary[current_ball];
+			batsman = allPlayers[current_ball_data.batsman_score_card.player_id];
+			bowler = allPlayers[current_ball_data.bowler_score_card.player_id];
 
-			batsman = allPlayers[current_ball_data.striker?.player_id];
-			bowler = allPlayers[current_ball_data.bowler?.player_id];
 			current_ball_data = full_match_commentary[current_ball];
-			current_over = current_ball_data.current_over;
+			current_over = current_ball_data.innings_score_card.overs;
+			current_over_outcomes = current_ball_data.over_score_card.outcomes;
 			current_over_data = [current_ball_data, ...current_over_data];
+			current_over_number = current_ball_data.over_score_card.overs;
 
-			if (current_over != previous_over) {
+			if (current_over_number != previous_over) {
 				current_over_data = [current_ball_data];
 			}
 
 			current_ball++;
-			previous_over = current_ball_data.current_over;
+			previous_over = current_over_number;
 			if (current_ball < full_match_commentary.length) {
 				streaming = true;
 				timeoutID = setTimeout(streamData, 3000);
-			}
-
-			if (current_ball_data['innings'] == 'Second') {
-				runs_required = current_ball_data['target'] - current_ball_data['current_score'];
 			}
 		}
 	}
@@ -117,24 +124,25 @@
 	<div>
 		{#if streaming}
 			<div class="flex w-full flex-col lg:flex-row">
-				{#if current_ball_data.innings == 'First'}
+				{#if current_ball_data.innings_score_card.first_innings}
 					<div class="stat text-left bg-primary text-primary-content rounded-box">
 						<div class="stat-title">{gameData.toss_result}</div>
 						<div class="stat-value text-black">{gameData.team_name}</div>
 						<div class="stat-value ">
 							<span class="text-3xl"
-								>{current_ball_data.current_score} / {current_ball_data.current_wickets}</span
+								>{current_ball_data.innings_score_card.runs} / {current_ball_data.innings_score_card
+									.wickets}</span
 							>
 							<span class="text-xl">
-								in {current_ball_data.current_over}.{current_ball_data.current_ball} overs
+								in {current_over} overs
 							</span>
 						</div>
-						<div class="stat-value text-base">This over: {current_ball_data.over_score}</div>
+						<div class="stat-value text-base">This over: {current_over_outcomes.join(' ')}</div>
 					</div>
 					<div class="divider divider-horizontal">vs</div>
 					<div class="stat text-right bg-base-200 rounded-box">
 						<div class="stat-title">Yet to bat</div>
-						<div class="stat-value text-black">{gameData.enemy_team}</div>
+						<div class="stat-value text-black">{gameData.enemy_team_name}</div>
 						<div class="stat-value ">
 							<span class="text-3xl">0 / 0</span>
 							<span class="text-xl" />
@@ -146,37 +154,33 @@
 						<div class="stat-value text-black">{gameData.team_name}</div>
 						<div class="stat-value ">
 							<span class="text-3xl"
-								>{gameData.first_innings.score} / {gameData.first_innings.wickets}</span
+								>{gameData.first_innings_score_card.runs} / {gameData.first_innings_score_card
+									.wickets}</span
 							>
 							<span class="text-xl">
-								in {gameData.first_innings.current_over}.{gameData.first_innings.current_ball} overs
+								in {gameData.first_innings_score_card.overs} overs
 							</span>
 						</div>
 					</div>
 					<div class="divider divider-horizontal">vs</div>
 					<div class="stat text-right bg-primary text-primary-content rounded-box">
 						<div class="stat-title">
-							{#if runs_required > 0}
-								{#if current_ball == full_match_commentary.length}
-									Lost the game by {runs_required - 1} runs
-								{:else}
-									Need {runs_required} runs to win
-								{/if}
-							{:else if runs_required == 0}
-								Match tied
+							{#if current_ball == full_match_commentary.length}
+								{gameData.team_two_game_over_title}
 							{:else}
-								Won the game with {10 - current_ball_data.current_wickets} wickets left
+								Need {gameData.second_innings_score_card.target} runs to win
 							{/if}
 						</div>
-						<div class="stat-value text-black">{gameData.enemy_team}</div>
+						<div class="stat-value text-black">{gameData.enemy_team_name}</div>
 						<div class="stat-value ">
 							<span class="text-3xl"
-								>{current_ball_data.current_score} / {current_ball_data.current_wickets}</span
+								>{current_ball_data.innings_score_card.runs} / {current_ball_data.innings_score_card
+									.wickets}</span
 							>
 							<span class="text-xl">
-								in {current_ball_data.current_over}.{current_ball_data.current_ball} overs
+								in {current_over} overs
 							</span>
-							<div class="stat-value text-base">This over: {current_ball_data.over_score}</div>
+							<div class="stat-value text-base">This over: {current_over_outcomes.join(' ')}</div>
 						</div>
 					</div>
 				{/if}
@@ -200,7 +204,7 @@
 							{/if}
 						</div>
 						<div class="divider-horizontal" />
-						<div class="flex flex-row">
+						<!-- <div class="flex flex-row">
 							<p class="text-left">
 								<span>Form</span>
 								<span class="badge">{batsman.form}</span>
@@ -208,6 +212,30 @@
 							<p class="text-right">
 								<span>Fitness</span>
 								<span class="badge">{batsman.fitness}</span>
+							</p>
+						</div> -->
+						<div class="divider-horizontal" />
+						<div class="flex flex-row">
+							<p class="text-left">
+								<span>Runs:</span>
+								<span class="font-bold"
+									>{current_ball_data.batsman_score_card.runs}
+									({current_ball_data.batsman_score_card.balls})*</span
+								>
+							</p>
+							<p class="text-right">
+								<span>Fours:</span>
+								<span class="font-bold">{current_ball_data.batsman_score_card.four}</span>
+							</p>
+						</div>
+						<div class="flex flex-row">
+							<p class="text-left">
+								<span>Strike rate:</span>
+								<span class="font-bold">{current_ball_data.batsman_score_card.strike_rate}%</span>
+							</p>
+							<p class="text-right">
+								<span>Sixes:</span>
+								<span class="font-bold">{current_ball_data.batsman_score_card.six}</span>
 							</p>
 						</div>
 						<div class="divider-horizontal" />
@@ -252,7 +280,7 @@
 							{/if}
 						</div>
 						<div class="divider-horizontal" />
-						<div class="flex flex-row">
+						<!-- <div class="flex flex-row">
 							<p class="text-left">
 								<span>Form</span>
 								<span class="badge">{bowler.form}</span>
@@ -261,8 +289,27 @@
 								<span>Fitness</span>
 								<span class="badge">{bowler.fitness}</span>
 							</p>
+						</div> -->
+						<div class="flex flex-row">
+							<p class="text-left">
+								<span>Overs:</span>
+								<span class="font-bold">{current_ball_data.bowler_score_card.overs_bowled}</span>
+							</p>
+							<p class="text-right">
+								<span>Runs:</span>
+								<span class="font-bold">{current_ball_data.bowler_score_card.runs}</span>
+							</p>
 						</div>
-						<div class="divider-horizontal" />
+						<div class="flex flex-row">
+							<p class="text-left">
+								<span>Wickets:</span>
+								<span class="font-bold">{current_ball_data.bowler_score_card.wickets}</span>
+							</p>
+							<p class="text-right">
+								<span>Economy:</span>
+								<span class="font-bold">{current_ball_data.bowler_score_card.economy}</span>
+							</p>
+						</div>
 						<div class="rating rating-lg">
 							{#each Array(10) as _, i}
 								{#if i + 1 == bowler.bowling_rating}
@@ -287,11 +334,15 @@
 			</div>
 			<div class="p-5 divider-horizontal" />
 			{#each current_over_data as ball_data}
-				<div class="alert alert-success shadow-2xl font-bold mb-3">
+				<div
+					class="alert shadow-2xl font-bold mb-3
+					{ball_data.outcome == 'wicket' ? 'alert-error' : 'alert-success'}"
+				>
 					<div>
-						{ball_data.current_over}.{ball_data.current_ball}
-						{ball_data.bowler?.player_name} to {ball_data.striker?.player_name}
-						<span>{ball_data.outcome_label}</span>
+						{ball_data.innings_score_card.overs}
+						{allPlayers[ball_data.bowler_score_card.player_id].player_name} to
+						{allPlayers[ball_data.batsman_score_card.player_id].player_name}
+						<span class="capitalize">{ball_data.outcome}</span>
 					</div>
 				</div>
 			{/each}
