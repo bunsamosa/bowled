@@ -1,11 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{html,js,svelte,ts}'],
+  darkMode: 'class',
+  content: [
+    './src/**/*.{html,js,svelte,ts}',
+    require('path').join(require.resolve('@skeletonlabs/skeleton'),
+      '../**/*.{html,js,svelte,ts}'
+    )
+  ],
   theme: {
     extend: {}
   },
-  plugins: [require("daisyui")],
-  daisyui: {
-    themes: ["bumblebee", "halloween",]
-  }
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    ...require('@skeletonlabs/skeleton/tailwind/skeleton.cjs')()
+  ]
 };
