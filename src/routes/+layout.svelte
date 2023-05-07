@@ -1,6 +1,7 @@
-<script lang="ts">
-	import '../app.css';
-	import Notifications from 'svelte-notifications';
+<script setup lang="ts">
+	import '@skeletonlabs/skeleton/themes/theme-gold-nouveau.css';
+	import '@skeletonlabs/skeleton/styles/all.css';
+	import '../app.postcss';
 	import { page } from '$app/stores';
 
 	let GA_MEASUREMENT_ID = import.meta.env.VITE_GA_ID;
@@ -21,6 +22,4 @@
 	}
 </script>
 
-<Notifications>
-	<slot />
-</Notifications>
+<slot />
