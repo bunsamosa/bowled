@@ -16,8 +16,8 @@
 	<div class="p-4 text-4xl font-bold md:text-5xl lg:text-6xl copy-gradient">
 		Beat your friends in Cricket
 	</div>
-	<div class="text-lg mb-8 font-normal text-gray-400 lg:text-xl sm:px-16 xl:px-48">
-		Experience the battle of cricket strategy and stumps in a card-game!
+	<div class="text-xl mb-8 font-semibold lg:text-2xl sm:px-16 xl:px-48">
+		Experience the battle of cricket strategy in a card-game!
 	</div>
 	<div
 		class="flex flex-col mb-8 lg:mb-32 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4"
