@@ -39,6 +39,18 @@ module.exports = {
 				allowSeparatedGroups: true,
 			},
 		],
+		'max-len': [
+			'error',
+			{
+				code: 80,
+				tabWidth: 4,
+				ignoreComments: true,
+				ignoreUrls: true,
+				ignoreStrings: true,
+				ignoreTemplateLiterals: true,
+				ignoreRegExpLiterals: true,
+			},
+		],
 		// turn on errors for missing imports
 		'import/no-unresolved': 'error',
 		// 'import/no-named-as-default-member': 'off',
