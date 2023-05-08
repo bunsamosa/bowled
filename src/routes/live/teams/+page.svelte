@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { teamID } from '$lib/stores/gameStore';
 	import BallLoader from '$lib/components/core/BallLoader.svelte';
+	import LiveTeam from '$lib/components/teams/LiveTeam.svelte';
 
 	let teamData: any = [];
 
@@ -23,34 +24,15 @@
 	}
 </script>
 
-<div class="hero min-h-screen">
-	<div class="hero-content flex-col min-w-full">
-		{#await loadTeams()}
-			<BallLoader />
-		{:then}
-			<div class="my-5"><h1 class="text-5xl font-bold">Choose your favorite team</h1></div>
-			<div class="min-w-full">
-				<div class="flex flex-row flex-wrap">
-					{#each teamData as team}
-						<div
-							class="card w-72 h-72 mx-auto mb-10 shadow-xl image-full hover:scale-110 hover:bg-blue-600 outline"
-						>
-							<figure>
-								<img src={team.team_logo} alt={team.team_name} />
-							</figure>
-							<div class="card-body justify-around">
-								<h2 class="card-title justify-center text-3xl">{team.team_name}</h2>
-								<div class="card-actions justify-end">
-									<button
-										class="btn btn-primary"
-										on:click={() => meetPlayers(team.team_id, team.players)}>Pick</button
-									>
-								</div>
-							</div>
-						</div>
-					{/each}
-				</div>
-			</div>
-		{/await}
-	</div>
+<div class="flex flex-col h-full items-center">
+	{#await loadTeams()}
+		<BallLoader />
+	{:then _}
+		<div class="m-4 text-xl lg:text-4xl font-bold text-center">Choose your favorite team</div>
+		<div class="flex flex-row flex-wrap justify-center items-center">
+			{#each teamData as team}
+				<LiveTeam data={team} />
+			{/each}
+		</div>
+	{/await}
 </div>

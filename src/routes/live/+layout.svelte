@@ -1,15 +1,24 @@
-<script lang="ts">
-	import HomeNavbar from '$lib/components/core/HomeNavbar.svelte';
-	let bgImage = '/images/ball_grass_bg.png';
+<script setup lang="ts">
+	import Fa from 'svelte-fa/src/fa.svelte';
+	import { AppBar, AppShell } from '@skeletonlabs/skeleton';
+	import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 </script>
 
-<!-- Background image -->
-<!-- <div style="background-image: url({bgImage}); " class="bg-fixed	bg-center bg-no-repeat bg-cover "> -->
-<!-- Gradient effect -->
-<!-- <div class="bg-gradient-to-b from-black"> -->
-<div class="max-w-screen-xl m-auto">
-	<HomeNavbar />
+<AppShell class="max-w-screen-xl m-auto">
+	<svelte:fragment slot="header">
+		<AppBar background="">
+			<svelte:fragment slot="lead">
+				<a href="/" class="text-2xl font-semibold">Bowled</a>
+			</svelte:fragment>
+			<svelte:fragment slot="trail">
+				<a href="https://twitter.com/bowledGG" target="_blank" class="px-1">
+					<Fa size="lg" icon={faTwitter} />
+				</a>
+				<a href="https://twitter.com/bowledGG" target="_blank" class="px-1">
+					<Fa size="lg" icon={faGithub} />
+				</a>
+			</svelte:fragment>
+		</AppBar>
+	</svelte:fragment>
 	<slot />
-</div>
-<!-- </div> -->
-<!-- </div> -->
+</AppShell>
