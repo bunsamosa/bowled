@@ -3,14 +3,15 @@
 </script>
 
 <div
-	class="card w-52 m-4 p-2 rounded-lg shadow-lg cursor-pointer overflow-hidden
-    hover:brightness-50 hover:scale-105 transition-all variant-filled"
+	class="card w-56 h-80 m-4 rounded-lg shadow-lg cursor-pointer overflow-hidden
+    hover:brightness-50 hover:scale-105 transition-all variant-filled
+	flex flex-col items-center justify-center"
 >
 	<!-- Team logo -->
-	<img class="object-scale-down w-48 h-48" src={data.team_logo} alt={data.team_name} />
+	<img class="object-contain w-48 h-48" src={data.team_logo} alt={data.team_name} />
 	<!-- Team name -->
 	<div class="flex items-center justify-center m-2">
-		<span class="text-2xl font-bold">{data.team_name}</span>
+		<span class="text-xl font-bold text-center">{data.team_name}</span>
 	</div>
 	<!-- Team tags -->
 	<div class="flex items-center justify-center flex-wrap">
