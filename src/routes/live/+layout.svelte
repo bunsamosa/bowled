@@ -4,7 +4,11 @@
 	import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 </script>
 
-<AppShell class="max-w-screen-xl m-auto">
+<AppShell
+	class="max-w-screen-xl m-auto"
+	regionPage="relative"
+	slotPageContent="overflow-hidden hide-scrollbar"
+>
 	<svelte:fragment slot="header">
 		<AppBar background="">
 			<svelte:fragment slot="lead">
