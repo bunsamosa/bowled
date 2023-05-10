@@ -1,8 +1,10 @@
 <script setup lang="ts">
+	import { navigating } from '$app/stores';
 	import '@skeletonlabs/skeleton/themes/theme-gold-nouveau.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
 	import { page } from '$app/stores';
+	import BallLoader from '$lib/components/core/BallLoader.svelte';
 
 	let GA_MEASUREMENT_ID = import.meta.env.VITE_GA_ID;
 
@@ -22,4 +24,10 @@
 	}
 </script>
 
-<slot />
+{#if $navigating}
+	<div class="flex h-full m-auto">
+		<BallLoader />
+	</div>
+{:else}
+	<slot />
+{/if}
