@@ -5,26 +5,42 @@
 	import LiveTeamList from '$lib/components/teams/LiveTeamList.svelte';
 
 	export let data;
-	const { teams } = data;
+	let { teams } = data;
 	let tabSet: string = 'All';
+	let searchQuery: string = '';
 
 	async function meetPlayers(myTeam: string, myPlayers: any) {
 		teamID.set(myTeam);
 		goto('/live/players');
 	}
+
+	// search function: local search in the response array
+	async function searchTeam() {
+		// reset array when search query is empty
+		if (searchQuery === '') {
+			teams = data.teams;
+			return;
+		}
+
+		// filter array based on search query
+		teams = teams.filter((team) =>
+			team.team_name.toLowerCase().includes(searchQuery.toLowerCase())
+		);
+	}
 </script>
 
-<div class="flex flex-col h-full items-center">
+<div class="flex flex-col h-full">
 	<!-- Title -->
 	<div class="m-4 text-xl lg:text-4xl font-bold text-center">Choose your favorite team</div>
 
 	<!-- Search bar -->
-	<div class="w-1/2 m-auto">
+	<div class="w-1/2 mx-auto">
 		<input
 			class="input"
 			type="search"
 			placeholder="Type here to search..."
-			on:input={console.log}
+			bind:value={searchQuery}
+			on:input={searchTeam}
 		/>
 	</div>
 	<!-- Tab Group -->
