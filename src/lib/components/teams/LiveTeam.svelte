@@ -1,11 +1,18 @@
 <script setup lang="ts">
+	import { goto } from '$app/navigation';
 	export let data: any;
+
+	async function viewPlayers(teamID: string) {
+		// navigate to players page
+		goto(`/live/${teamID}/players`);
+	}
 </script>
 
-<div
+<button
 	class="card w-56 h-80 m-4 rounded-lg shadow-lg cursor-pointer overflow-hidden
     hover:brightness-50 hover:scale-105 transition-all variant-filled
 	flex flex-col items-center justify-center"
+	on:click={() => viewPlayers(data.team_id)}
 >
 	<!-- Team logo -->
 	<img class="object-contain w-48 h-48" src={data.team_logo} alt={data.team_name} />
@@ -19,4 +26,4 @@
 			<span class="mx-1 variant-ringed rounded-xl text-sm font-semibold px-2">{tag}</span>
 		{/each}
 	</div>
-</div>
+</button>

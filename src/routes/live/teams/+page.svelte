@@ -1,18 +1,11 @@
 <script lang="ts">
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
-	import { goto } from '$app/navigation';
-	import { teamID } from '$lib/stores/gameStore';
 	import LiveTeamList from '$lib/components/teams/LiveTeamList.svelte';
 
 	export let data;
 	let { teams } = data;
 	let tabSet: string = 'All';
 	let searchQuery: string = '';
-
-	async function meetPlayers(myTeam: string, myPlayers: any) {
-		teamID.set(myTeam);
-		goto('/live/players');
-	}
 
 	// search function: local search in the response array
 	async function searchTeam() {
