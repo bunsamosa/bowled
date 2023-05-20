@@ -7,7 +7,7 @@
 	const { gameData } = data;
 
 	// define game state variables
-	let current_ball = 150;
+	let current_ball = 0;
 	let current_ball_data: any = {};
 	let current_over = 0;
 	let current_over_number = 0;
@@ -62,7 +62,6 @@
 			...gameData.enemy_team,
 			...gameData.user_team
 		};
-		console.log(gameData);
 
 		streamData();
 	});

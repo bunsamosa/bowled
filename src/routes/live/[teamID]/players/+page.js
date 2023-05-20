@@ -8,7 +8,6 @@ export const load = async ({ fetch, params }) => {
     const fetchPlayers = async () => {
         const response = await fetch(playersURL);
         const players = await response.json();
-        console.log(players);
         return players;
     };
 
