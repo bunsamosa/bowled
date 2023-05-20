@@ -92,38 +92,40 @@
 	<!-- Title -->
 	<div class="m-2 text-xl lg:text-4xl font-bold text-center">Choose playing XI</div>
 
-	<div class="flex flex-col variant-ringed m-2 rounded-xl">
-		<!-- Subtitle section -->
-		<div class="flex flex-row items-center justify-center">
-			<span class="text-lg text-center">You need a team of 11 players to play a game</span>
-			<!-- Help button -->
-			<button class="btn p-0 m-2 hover:brightness-50">
+	<span class="hidden lg:block">
+		<div class="flex flex-col variant-ringed m-2 rounded-xl">
+			<!-- Subtitle section -->
+			<div class="flex flex-row items-center justify-center">
+				<span class="lg:text-lg text-center">You need a team of 11 players to play a game</span>
+				<!-- Help button -->
+				<!-- <button class="btn p-0 m-2 hover:brightness-50">
 				<Fa size="lg" icon={faQuestionCircle} />
-			</button>
-		</div>
+			</button> -->
+			</div>
 
-		<!-- Selected players section -->
-		<div class="flex flex-row min-h-[48px] flex-wrap items-center justify-center">
-			{#each selectedPlayers as playerID}
-				<div
-					class="card m-2 p-2 rounded-lg shadow-lg overflow-hidden
+			<!-- Selected players section -->
+			<div class="flex flex-row min-h-[48px] flex-wrap items-center justify-center">
+				{#each selectedPlayers as playerID}
+					<div
+						class="card m-2 p-2 rounded-lg shadow-lg overflow-hidden
             flex flex-row items-center justify-center"
-				>
-					{#if playerID > 0}
-						<span class="font-semibold text-center">{playersData[playerID]?.player_name}</span>
-						<button
-							class="btn p-0 ml-2 hover:brightness-50"
-							on:click={() => removePlayer(playerID)}
-						>
-							<Fa size="2x" color="red" icon={faRectangleXmark} />
-						</button>
-					{:else}
-						<Fa size="2x" color="gray" icon={faPlus} />
-					{/if}
-				</div>
-			{/each}
+					>
+						{#if playerID > 0}
+							<span class="font-semibold text-center">{playersData[playerID]?.player_name}</span>
+							<button
+								class="btn p-0 ml-2 hover:brightness-50 hidden lg:block"
+								on:click={() => removePlayer(playerID)}
+							>
+								<Fa size="2x" color="red" icon={faRectangleXmark} />
+							</button>
+						{:else}
+							<Fa size="2x" color="gray" icon={faPlus} />
+						{/if}
+					</div>
+				{/each}
+			</div>
 		</div>
-	</div>
+	</span>
 
 	<!-- Action buttons: Auto-fill, clear all and Play -->
 	<div class="flex flex-row justify-center items-center">
@@ -156,7 +158,7 @@
 			>
 				<!-- Player avatar -->
 				<img
-					class="object-cover object-top h-36 w-full"
+					class="object-cover object-top h-36 w-full hidden lg:block"
 					src={player.avatar_url}
 					alt={player.name}
 				/>

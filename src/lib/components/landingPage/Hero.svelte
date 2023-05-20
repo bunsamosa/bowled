@@ -25,9 +25,9 @@
 		<button type="button" class="btn py-3 px-7 rounded-xl variant-filled-primary" on:click={play}>
 			Play Now
 		</button>
-		<button type="button" class="btn py-3 px-5 rounded-xl variant-ringed-secondary">
+		<!-- <button type="button" class="btn py-3 px-5 rounded-xl variant-ringed-secondary">
 			Learn more
-		</button>
+		</button> -->
 	</div>
 	<dl class="grid max-w-screen-sm mx-auto sm:grid-cols-3">
 		<div class="flex flex-col items-center justify-center">

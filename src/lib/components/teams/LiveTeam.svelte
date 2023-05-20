@@ -9,13 +9,13 @@
 </script>
 
 <button
-	class="card w-56 h-80 m-4 rounded-lg shadow-lg cursor-pointer overflow-hidden
+	class="card w-56 lg:h-80 m-4 p-2 lg:p-0 rounded-lg shadow-lg cursor-pointer overflow-hidden
     hover:brightness-50 hover:scale-105 transition-all variant-filled
 	flex flex-col items-center justify-center"
 	on:click={() => viewPlayers(data.team_id)}
 >
 	<!-- Team logo -->
-	<img class="object-contain w-48 h-48" src={data.team_logo} alt={data.team_name} />
+	<img class="object-contain w-48 h-48 hidden lg:block" src={data.team_logo} alt={data.team_name} />
 	<!-- Team name -->
 	<div class="flex items-center justify-center m-2">
 		<span class="text-xl font-bold text-center">{data.team_name}</span>
