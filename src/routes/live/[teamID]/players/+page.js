@@ -4,7 +4,6 @@ import { serverURL } from '$lib/utils/bowledClient';
 export const load = async ({ fetch, params }) => {
     const { teamID } = params;
     const playersURL = serverURL + '/live/players?team=' + teamID;
-    console.log(playersURL);
 
     const fetchPlayers = async () => {
         const response = await fetch(playersURL);
@@ -14,6 +13,7 @@ export const load = async ({ fetch, params }) => {
     };
 
     return {
-        players: fetchPlayers()
+        players: fetchPlayers(),
+        teamID: teamID
     };
 };

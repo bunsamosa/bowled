@@ -46,6 +46,7 @@
 		"@fortawesome/free-regular-svg-icons": "^6.3.0",
 		"@fortawesome/free-solid-svg-icons": "^6.4.0",
 		"@lottiefiles/lottie-player": "^1.5.7",
-		"@supabase/supabase-js": "^1.35.6"
+		"@supabase/supabase-js": "^1.35.6",
+		"svelte-local-storage-store": "^0.4.0"
 	}
 }

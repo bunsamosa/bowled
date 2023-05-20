@@ -3,10 +3,13 @@
 	import { faQuestionCircle, faRectangleXmark } from '@fortawesome/free-regular-svg-icons';
 	import { faPlus } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa/src/fa.svelte';
+	import { goto } from '$app/navigation';
+	import { sortByWicketKeeping, sortByBatting, sortByBowling } from '$lib/utils/players';
+	import { LivePlayers } from '$lib/stores/LiveGame';
 
 	// read players data
 	export let data;
-	let { players } = data;
+	let { players, teamID } = data;
 	// sort by name
 	players = players.sort((a: any, b: any) => a.player_name.localeCompare(b.player_name));
 
@@ -34,7 +37,6 @@
 
 	// remove a player: remove the player from selected players if present
 	function removePlayer(id: number) {
-		console.log(id);
 		if (selectedPlayers.includes(id)) {
 			selectedPlayers = selectedPlayers.filter((playerID) => playerID != id);
 		}
@@ -46,14 +48,12 @@
 		clearAll();
 
 		// sort by wicket keeping index and pick the first player
-		let wicketKeepers = [...players].sort(
-			(a: any, b: any) => b.wicket_keeping_index - a.wicket_keeping_index
-		);
+		let wicketKeepers = sortByWicketKeeping(players);
 		let wicketKeeperID = wicketKeepers[0].player_id;
 		selectPlayer(wicketKeeperID);
 
 		// sort by batting index and pick the first 5 players who are not already selected
-		let batsmen = [...players].sort((a: any, b: any) => b.batting_rating - a.batting_rating);
+		let batsmen = sortByBatting(players);
 		// remove the WK from the list
 		batsmen = batsmen.filter((player) => !selectedPlayers.includes(player.player_id));
 		// pick the first 5 players
@@ -62,7 +62,7 @@
 		}
 
 		// sort by bowling index and pick the first 5 players who are not already selected
-		let bowlers = [...players].sort((a: any, b: any) => b.bowling_rating - a.bowling_rating);
+		let bowlers = sortByBowling(players);
 
 		// remove selected players from the list
 		bowlers = bowlers.filter((player) => !selectedPlayers.includes(player.player_id));
@@ -76,6 +76,15 @@
 	function clearAll() {
 		// clear selected players
 		selectedPlayers = Array.from({ length: 0 }, (i) => 0);
+	}
+
+	// play game: store player data and navigate to game page
+	function playGame() {
+		// store player data
+		LivePlayers.set({ players: selectedPlayers });
+
+		// navigate to game page
+		goto(`/live/${teamID}/match`);
 	}
 </script>
 
@@ -116,16 +125,22 @@
 		</div>
 	</div>
 
-	<!-- Auto fill and Clear all buttons -->
+	<!-- Action buttons: Auto-fill, clear all and Play -->
 	<div class="flex flex-row justify-center items-center">
-		<button class="btn variant-filled-secondary m-2" type="button" on:click={autoFill}
-			>Pick for me</button
-		>
+		<button class="btn variant-filled-secondary m-2" type="button" on:click={autoFill}>
+			Pick for me
+		</button>
 		<button
 			class="btn variant-filled m-2"
 			type="button"
 			on:click={clearAll}
 			disabled={selectedPlayers.length == 0}>Clear All</button
+		>
+		<button
+			class="btn variant-filled-primary m-2"
+			type="button"
+			on:click={playGame}
+			disabled={selectedPlayers.length < 11}>Play Now</button
 		>
 	</div>
 	<span class="text-lg text-center m-1"
