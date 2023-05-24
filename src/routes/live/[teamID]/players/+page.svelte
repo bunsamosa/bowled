@@ -6,6 +6,7 @@
 	import { goto } from '$app/navigation';
 	import { sortByWicketKeeping, sortByBatting, sortByBowling } from '$lib/utils/players';
 	import { LivePlayers } from '$lib/stores/LiveGame';
+	import { Avatar } from '@skeletonlabs/skeleton';
 
 	// read players data
 	export let data;
@@ -153,30 +154,23 @@
 	<div class="flex flex-row flex-wrap overflow-y-scroll justify-center">
 		{#each players as player}
 			<div
-				class="card w-72 h-auto m-3 rounded-xl shadow-lg overflow-hidden
-				variant-filled flex flex-col items-center py-2 px-4"
+				class="card w-72 h-auto m-4 rounded-xl shadow-lg overflow-hidden
+				variant-filled flex flex-col items-center p-2 font-['RobotoMono']"
 			>
-				<!-- Player avatar -->
-				<img
-					class="object-cover object-top h-36 w-full hidden lg:block"
-					src={player.avatar_url}
-					alt={player.name}
-				/>
-				<!-- Player name -->
-				<div class="text-xl font-bold text-center my-1">{player.player_name}</div>
-				<!-- Player type -->
-				<div class="variant-ringed-secondary rounded-xl text-sm font-semibold px-2 capitalize">
-					{player.player_type}
-				</div>
-				<!-- Form and Fitness -->
-				<div class="flex flex-row justify-between w-full my-2">
-					<div>
-						<span class="">Form:</span>
-						<span class="font-semibold">{player.form}</span>
-					</div>
-					<div>
-						<span>Fitness:</span>
-						<span class="font-semibold">{player.fitness}</span>
+				<!-- Top header -->
+				<div class="flex flex-row w-full h-24 mb-1">
+					<!-- Player avatar -->
+					<Avatar
+						src={player.avatar_url}
+						class="w-2/5 object-scale-down rounded-none"
+						background=""
+					/>
+					<!-- Player name and type -->
+					<div class="flex flex-col w-3/5 items-start text-left justify-center">
+						<span class="font-semibold text-lg">{player.player_name}</span>
+						<span class="text-xs capitalize variant-ringed-secondary rounded-xl px-2">
+							{player.player_type}
+						</span>
 					</div>
 				</div>
 				<!-- Player skills -->
@@ -218,14 +212,14 @@
 				/>
 				{#if selectedPlayers.includes(player.player_id)}
 					<button
-						class="btn w-full my-2 variant-filled-error"
+						class="btn w-full variant-filled-error"
 						on:click={() => removePlayer(player.player_id)}
 					>
 						Remove
 					</button>
 				{:else}
 					<button
-						class="btn w-full my-2 variant-filled-secondary"
+						class="btn w-full variant-filled-secondary"
 						on:click={() => selectPlayer(player.player_id)}
 					>
 						Pick

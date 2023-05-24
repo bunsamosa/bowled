@@ -8,9 +8,9 @@
 	export let skillMax: number = 20;
 </script>
 
-<div class="flex flex-col w-full m-1">
+<div class="flex flex-col w-full py-1 px-3 text-xs">
 	<div class="flex flex-row justify-between w-full">
-		<span class="font-semibold">{skillName}</span>
+		<span>{skillName}</span>
 		<span class="font-semibold" style="color:{skillColor}">
 			{skillLevel}
 		</span>
