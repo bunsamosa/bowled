@@ -18,7 +18,7 @@
 				<a href="https://twitter.com/bowledGG" target="_blank" class="px-1">
 					<Fa size="lg" icon={faTwitter} />
 				</a>
-				<a href="https://twitter.com/bowledGG" target="_blank" class="px-1">
+				<a href="https://github.com/bunsamosa/bowled" target="_blank" class="px-1">
 					<Fa size="lg" icon={faGithub} />
 				</a>
 			</svelte:fragment>
