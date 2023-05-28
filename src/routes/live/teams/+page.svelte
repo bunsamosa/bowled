@@ -1,11 +1,17 @@
 <script lang="ts">
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
+	import { page } from '$app/stores';
 	import LiveTeamList from '$lib/components/teams/LiveTeamList.svelte';
 
 	export let data;
 	let { teams } = data;
-	let tabSet: string = 'All';
 	let searchQuery: string = '';
+
+	// open tab based on query param
+	let tabSet = $page.url.searchParams.get('tab') || 'All';
+	if (['All', 'ICC', 'IPL'].includes(tabSet) === false) {
+		tabSet = 'All';
+	}
 
 	// search function: local search in the response array
 	async function searchTeam() {

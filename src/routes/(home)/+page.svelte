@@ -7,7 +7,7 @@
 
 	// navigate to game
 	async function play() {
-		goto('/live/teams');
+		goto('/live/teams?tab=IPL');
 	}
 </script>
 
