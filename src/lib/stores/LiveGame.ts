@@ -1,4 +1,12 @@
 import { persisted } from 'svelte-local-storage-store';
 
-// object to store playing XI
-export const LivePlayers = persisted('livePlayers', { "players": [] });
+// Define the expected type
+interface LivePlayersStore {
+    players: number[];
+}
+
+// object to store playing XI with explicit type
+export const LivePlayers = persisted<LivePlayersStore>(
+    'livePlayers',
+    { players: [] } // Initial value
+);

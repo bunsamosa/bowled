@@ -81,11 +81,32 @@
 
 	// play game: store player data and navigate to game page
 	function playGame() {
-		// store player data
+		// Validate exactly 11 players are selected
+		if (selectedPlayers.length !== 11) {
+			alert('Please select exactly 11 players.'); // Consider a non-alert UI feedback
+			return;
+		}
+
+		// Store the selected player IDs for the Manager mode (as before)
 		LivePlayers.set({ players: selectedPlayers });
 
-		// navigate to game page
-		goto(`/live/${teamID}/match`);
+		// Store the selected player IDs (as strings) for the turn-based mode
+		try {
+			const selectedSquadIds = selectedPlayers.map(id => String(id));
+			sessionStorage.setItem('selectedTeam1Squad', JSON.stringify(selectedSquadIds));
+			console.log('Stored selected squad in sessionStorage:', selectedSquadIds);
+		} catch (e) {
+			console.error("Failed to save selected squad to sessionStorage:", e);
+			// Handle error appropriately - maybe alert user?
+			alert("Error saving player selection. Cannot proceed.");
+			return;
+		}
+
+		// TODO: Determine opponent team ID properly
+		const opponentTeamID = 'ind'; // Hardcoded opponent for now
+
+		// Navigate to the mode selection page, passing team IDs
+		goto(`/play/select-mode?team1=${teamID}&team2=${opponentTeamID}`);
 	}
 </script>
 
